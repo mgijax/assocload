@@ -1,0 +1,78 @@
+#format: sh
+#
+#  AssocLoad.config
+#
+#  This file sets up environment variables that are specific to the
+#  association loader and may override settings made by the data provider
+#  loader (DPL) config file.
+#
+#  NOTE:  The common config file (/usr/local/mgi/live/etc/common.config.sh)
+#         and the DPL config file should be run prior to this config file
+#         to set up any dependencies.
+#
+###########################################################################
+
+###########################################################################
+#
+#  GENERAL SETTINGS
+#
+###########################################################################
+
+#  Installation directory for the association loader
+INSTALLDIR=${USRLOCALMGI}/dataload/assocload
+
+export INSTALLDIR
+
+#  Association loader QC report shell script
+ASSOCLOADER_QCRPT=${QCRPTDIR}/assocload/AssocLoadRpt.sh
+
+export ASSOCLOADER_QCRPT
+
+###########################################################################
+#
+#  SOFTWARE SETTINGS
+#
+###########################################################################
+
+JAVA_LIB=${JAVAPATH}/lib_java_core/core.jar:${JAVAPATH}/lib_java_dbsmgd/dbsmgd.jar:${JAVAPATH}/lib_java_dbsrdr/dbsrdr.jar:${JAVAPATH}/lib_java_dla/dla.jar
+
+CLASSPATH=.:${INSTALLDIR}/assocload.jar:${JAVA_LIB}:${COMMON_CLASSPATH}
+
+export JAVA_LIB CLASSPATH
+
+###########################################################################
+#
+#  LOAD SPECIFIC SETTINGS
+#
+###########################################################################
+
+#  Logical DBs that can be associated with a single MGI object
+ASSOCLOAD_SINGLE_OBJECT_DB=MGC
+
+#  Logical DBs that can be associated with multiple MGI objects
+ASSOCLOAD_MULTIPLE_OBJECT_DB="Sequence DB"
+
+export ASSOCLOAD_SINGLE_OBJECT_DB ASSOCLOAD_MULTIPLE_OBJECT_DB
+
+###########################################################################
+#
+#  DLA SETTINGS
+#
+###########################################################################
+
+#  Java applications
+DLA_START=org.jax.mgi.shr.dla.loader.DLAStart
+DLA_LOADER=org.jax.mgi.app.assocload.AssociationLoader
+
+#  DLA stream settings
+DLA_DB_PREFIX=MGD
+DLA_LOAD_STREAM=org.jax.mgi.shr.dbutils.dao.BCP_Inline_Stream
+DLA_QC_STREAM=org.jax.mgi.shr.dbutils.dao.BCP_Inline_Stream
+
+export DLA_START DLA_LOADER DLA_DB_PREFIX DLA_LOAD_STREAM DLA_QC_STREAM
+
+#  Tables truncated by the DLA loader
+DLA_TRUNCATE_LOAD_TABLES=
+DLA_TRUNCATE_QC_TABLES=QC_AssocLoad_Target_Discrep,QC_AssocLoad_Assoc_Discrep
+
+export DLA_TRUNCATE_LOAD_TABLES DLA_TRUNCATE_QC_TABLES
