@@ -252,7 +252,6 @@ public class MGIAssociationProcessor
         int[] sameTypeCount = new int[distinctAccIDs.length];
         int[] diffTypeCount = new int[distinctAccIDs.length];
         int[] sameObjCount = new int[distinctAccIDs.length];
-        int[] diffObjCount = new int[distinctAccIDs.length];
         int[] action = new int[distinctAccIDs.length];
         String[] msg = new String[distinctAccIDs.length];
 
@@ -261,7 +260,6 @@ public class MGIAssociationProcessor
             sameTypeCount[i] = 0;
             diffTypeCount[i] = 0;
             sameObjCount[i] = 0;
-            diffObjCount[i] = 0;
             action[i] = 0;
             msg[i] = null;
         }
@@ -381,8 +379,6 @@ public class MGIAssociationProcessor
                     sameTypeCount[i]++;
                     if (objectKeys[j].intValue() == targetObjectKey)
                         sameObjCount[i]++;
-                    else
-                        diffObjCount[i]++;
                 }
                 else
                     diffTypeCount[i]++;
@@ -390,7 +386,6 @@ public class MGIAssociationProcessor
             logger.logdDebug("Counts: "+sameTypeCount[i]+"  "+
                              diffTypeCount[i]+"  "+
                              sameObjCount[i]+"  "+
-                             diffObjCount[i]+"  "+
                              distinctAccIDs[i]+"  "+
                              distinctLogicalDBKeys[i].intValue(),false);
         }
@@ -436,19 +431,19 @@ public class MGIAssociationProcessor
                     action[i] = AssociationLoadConstants.ACTION_REPORT_SKIP;
                     msg[i] = AssociationLoadConstants.ASSOC_DISCREP_D;
                 }
-                else if (sameTypeCount[i] == 1 && diffObjCount[i] == 1 &&
+                else if (sameTypeCount[i] == 1 && sameObjCount[i] == 0 &&
                          diffTypeCount[i] == 0)
                 {
                     action[i] = AssociationLoadConstants.ACTION_REPORT_SKIP;
                     msg[i] = AssociationLoadConstants.ASSOC_DISCREP_E;
                 }
-                else if (sameTypeCount[i] == 1 && diffObjCount[i] == 1 &&
+                else if (sameTypeCount[i] == 1 && sameObjCount[i] == 0 &&
                          diffTypeCount[i] == 1)
                 {
                     action[i] = AssociationLoadConstants.ACTION_REPORT_SKIP;
                     msg[i] = AssociationLoadConstants.ASSOC_DISCREP_F;
                 }
-                else if (sameTypeCount[i] == 1 && diffObjCount[i] == 1 &&
+                else if (sameTypeCount[i] == 1 && sameObjCount[i] == 0 &&
                          diffTypeCount[i] > 1)
                 {
                     action[i] = AssociationLoadConstants.ACTION_REPORT_SKIP;
@@ -505,19 +500,19 @@ public class MGIAssociationProcessor
                 {
                     action[i] = AssociationLoadConstants.ACTION_SKIP;
                 }
-                else if (sameTypeCount[i] == 1 && diffObjCount[i] == 1 &&
+                else if (sameTypeCount[i] == 1 && sameObjCount[i] == 0 &&
                          diffTypeCount[i] == 0)
                 {
                     action[i] = AssociationLoadConstants.ACTION_REPORT_ASSOCIATE;
                     msg[i] = AssociationLoadConstants.ASSOC_DISCREP_E;
                 }
-                else if (sameTypeCount[i] == 1 && diffObjCount[i] == 1 &&
+                else if (sameTypeCount[i] == 1 && sameObjCount[i] == 0 &&
                          diffTypeCount[i] == 1)
                 {
                     action[i] = AssociationLoadConstants.ACTION_REPORT_ASSOCIATE;
                     msg[i] = AssociationLoadConstants.ASSOC_DISCREP_F;
                 }
-                else if (sameTypeCount[i] == 1 && diffObjCount[i] == 1 &&
+                else if (sameTypeCount[i] == 1 && sameObjCount[i] == 0 &&
                          diffTypeCount[i] > 1)
                 {
                     action[i] = AssociationLoadConstants.ACTION_REPORT_ASSOCIATE;
@@ -791,6 +786,9 @@ public class MGIAssociationProcessor
 
 
 //  $Log$
+//  Revision 1.1  2005/01/24 17:19:16  dbm
+//  New
+//
 //
 /**************************************************************************
 *
