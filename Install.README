@@ -1,0 +1,14 @@
+Use the common DLAInstall script to install this product as follows:
+
+1) Go to the dlautils product directory.
+
+   e.g.  cd /usr/local/mgi/live/dbutils/dlautils
+
+2) Run the DLAInstall script and pass it the full path name of the common
+   config file and the config file for this load.  Also use the "-n"
+   option to tell the script to not do directory verifications because the
+   clone loader uses the directories belonging to a data provider loader
+   and does not have its own set.
+
+   e.g.  DLAInstall -n /usr/local/mgi/live/etc/common.config.sh
+                    /usr/local/mgi/live/dataload/assocload/AssocLoad.config
