@@ -198,6 +198,7 @@ public class AssociationLoader extends DLALoader
         Vector loadTables = new Vector();
         loadTables.add(Table.getInstance("ACC_Accession", loadDBMgr));
         loadTables.add(Table.getInstance("ACC_AccessionReference", loadDBMgr));
+        loadTables.add(Table.getInstance("PRB_Reference", loadDBMgr));
 
         // Initialize writers for each table if a BCP stream if being used.
         //
@@ -298,9 +299,9 @@ public class AssociationLoader extends DLALoader
                         "QC_AssocLoad_Assoc_Discrep tables",true);
         qcStream.close();
 
-        // Write the validation counts to the curator summary log.
+        // Write the processing counts to the curator summary log.
         //
-        logger.logcInfo("\nAssociation Loader Validation Counts",false);
+        logger.logcInfo("\nAssociation Loader Processing Counts",false);
         logger.logcInfo("------------------------------------",false);
         logger.logcInfo("Number of associations that already exist:       " +
                         assocProcessor.getExistCount(),false);
@@ -328,6 +329,9 @@ public class AssociationLoader extends DLALoader
 
 
 //  $Log$
+//  Revision 1.1  2005/01/24 17:19:15  dbm
+//  New
+//
 //
 /**************************************************************************
 *
