@@ -158,29 +158,40 @@ getConfigEnv -e >> ${LOG_DIAG}
 #
 #  Run the association loader.
 #
+echo "\n`date`" >> ${LOG_PROC}
+echo "Run the association loader application" >> ${LOG_PROC}
 ${JAVA} ${JAVARUNTIMEOPTS} -classpath ${CLASSPATH} \
         -DCONFIG=${COMMON_CONFIG},${DP_CONFIG},${ASSOCLOAD_CONFIG} \
         -DJOBKEY=${JOBKEY} ${SYSPROPS} ${DLA_START}
 STAT=$?
 if [ ${STAT} -ne 0 ]
 then
+    echo "Association loader application failed.  Return status: ${STAT}" >> ${LOG_PROC}
     exit 1
 fi
+echo "Association loader application completed successfully" >> ${LOG_PROC}
 
 #
 #  Generate the association loader QC reports.
 #
+echo "\n`date`" >> ${LOG_PROC}
+echo "Generate the association loader QC reports" >> ${LOG_PROC}
 ${ASSOCLOADER_QCRPT} ${RPTDIR} ${RADAR_DBSERVER} ${RADAR_DBNAME} ${MGD_DBNAME} ${JOBKEY} >> ${LOG_DIAG}
 STAT=$?
 if [ ${STAT} -ne 0 ]
 then
+    echo "QC reports failed.  Return status: ${STAT}" >> ${LOG_PROC}
     exit 1
 fi
+echo "QC reports completed successfully" >> ${LOG_PROC}
 
 exit 0
 
 
 #  $Log$
+#  Revision 1.1  2005/01/24 16:25:11  dbm
+#  New
+#
 #
 ###########################################################################
 #
