@@ -115,7 +115,8 @@ public class MGIAssociationGenerator
               "WHERE m._JobStream_key = " + jobKey + " and " +
                     "m.accID = a.accID and " +
                     "m.logicalDB = db.name and " +
-                    "db._LogicalDB_key = a._LogicalDB_key " +
+                    "db._LogicalDB_key = a._LogicalDB_key and " +
+                    "a._MGIType_key != 21 " +
               "ORDER BY m._Record_key, m.accID, db._LogicalDB_key";
         logger.logdInfo("Execute Query: "+sql,true);
         rn = sqlMgr.executeQuery(sql);
@@ -310,6 +311,9 @@ public class MGIAssociationGenerator
 
 
 //  $Log$
+//  Revision 1.1  2005/01/24 17:19:15  dbm
+//  New
+//
 //
 /**************************************************************************
 *
