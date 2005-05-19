@@ -92,10 +92,28 @@ public class AssociationLoaderCfg extends Configurator
     {
         return getConfigStringArrayNull("ASSOCLOAD_MULTIPLE_OBJECT_DB");
     }
+
+    /**
+     * Get the value (true/false) that determines whether to load the
+     * MGI_Association table from an input file.
+     * @assumes Nothing
+     * @effects Nothing
+     * @param None
+     * @return The configuration value
+     * @throws ConfigException if the value is not found
+     */
+    public Boolean getLoadFromFile ()
+        throws ConfigException
+    {
+        return getConfigBoolean("ASSOCLOAD_FROM_FILE",new Boolean(false));
+    }
 }
 
 
 //  $Log$
+//  Revision 1.1  2005/01/24 16:27:04  dbm
+//  New
+//
 //
 /**************************************************************************
 *
