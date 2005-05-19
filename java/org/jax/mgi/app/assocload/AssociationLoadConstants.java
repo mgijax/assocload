@@ -16,6 +16,16 @@ package org.jax.mgi.app.assocload;
 
 public class AssociationLoadConstants
 {
+    // String constants
+    //
+    public static final String CRT = "\n";
+    public static final String TAB = "\t";
+    public static final String COMMA = ",";
+
+    // Association input file constants.
+    //
+    public static final int MIN_FIELD_COUNT = 2;
+
     // Error messages for target accession ID/logical DB discrepancies.
     //
     public static final String TARGET_DISCREP_A =
@@ -74,6 +84,12 @@ public class AssociationLoadConstants
 
 
 //  $Log$
+//  Revision 1.1.2.1  2005/05/19 17:35:37  dbm
+//  TR 6574
+//
+//  Revision 1.1  2005/01/24 17:19:14  dbm
+//  New
+//
 //
 /**************************************************************************
 *

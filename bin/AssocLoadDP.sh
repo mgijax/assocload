@@ -3,25 +3,17 @@
 #  $Header$
 #  $Name$
 #
-#  AssocLoad.sh
+#  AssocLoadDP.sh
 ###########################################################################
 #
-#  Purpose:  This script controls the execution of the association loader.
+#  Purpose:  This script is a wrapper that is used when the association
+#            loader needs to handle the loading of the MGI_Association
+#            table from an association input file as the first step in
+#            its processing.
 #
 #  Usage:
 #
-#      AssocLoad.sh  ConfigFile  JobKey  [SystemProps]
-#
-#      where
-#
-#          ConfigFile is the path name of the configuration file for the
-#                     data provider loader.
-#          JobKey is the value that identifies the records in the RADAR
-#                 database that are to be processed.
-#          SystemProps is a list of optional system properties to be passed
-#                      to the Java application.  For example:
-#
-#                          -DSYSPROP1=abc -DSYSPROP2=123
+#      AssocLoadDP.sh  DP.config
 #
 #  Env Vars:
 #
@@ -30,12 +22,12 @@
 #  Inputs:
 #
 #      - Common configuration file (common.config.sh)
-#      - Association loader configuration file (AssocLoad.config)
-#      - Data provider loader configuration file (first argument)
-#      - Additional arguments (see Usage)
+#      - Data provider configuration file (DP.config.[data provider name])
+#      - Association input file
 #
 #  Outputs:
 #
+#      - An archive file
 #      - Log files defined by the environment variables ${LOG_PROC},
 #        ${LOG_DIAG}, ${LOG_CUR} and ${LOG_VAL}
 #      - BCP files for each database table to be loaded
@@ -56,15 +48,13 @@
 #
 #      This script performs the following steps:
 #
-#      1) Calls the Association Load application to:
+#      1) Source configuration files to establish the environment.
 #
-#         a) Use the records in the MGI_Association table in the RADAR
-#            database to make associations in the MGD database.
-#         b) Load QC report tables in the RADAR database with any
-#            discrepancies in the data.
+#      2) Perform preload functions.
 #
-#      2) Calls the QC Report product to generate the QC reports using the
-#         data in the QC report tables.
+#      3) Calls the Association Loader shell script.
+#
+#      4) Perform postload functions.
 #
 #  Notes:  None
 #
@@ -81,23 +71,17 @@ rm -f ${LOG}
 #
 #  Verify the argument(s) to the shell script.
 #
-if [ $# -lt 2 ]
+if [ $# -ne 1 ]
 then
-    echo "Usage: $0  ConfigFile  JobKey  [SystemProps]" | tee -a ${LOG}
+    echo "Usage: $0  DP.config" | tee -a ${LOG}
     exit 1
-else
-    DP_CONFIG=$1
-    shift
-    JOBKEY=$1
-    shift
-    SYSPROPS=$*
 fi
 
 #
 #  Establish the configuration file names.
 #
 COMMON_CONFIG=`pwd`/common.config.sh
-ASSOCLOAD_CONFIG=`pwd`/AssocLoad.config
+DP_CONFIG=$1
 
 #
 #  Make sure the configuration files are readable.
@@ -110,11 +94,6 @@ fi
 if [ ! -r ${DP_CONFIG} ]
 then
     echo "Cannot read configuration file: ${DP_CONFIG}" | tee -a ${LOG}
-    exit 1
-fi
-if [ ! -r ${ASSOCLOAD_CONFIG} ]
-then
-    echo "Cannot read configuration file: ${ASSOCLOAD_CONFIG}" | tee -a ${LOG}
     exit 1
 fi
 
@@ -146,53 +125,51 @@ fi
 . ${DP_CONFIG}
 
 #
-#  Source the association loader configuration file.
+#  Create any required directories that don't already exist.
 #
-. ${ASSOCLOAD_CONFIG}
+for i in ${FILEDIR} ${ARCHIVEDIR} ${LOGDIR} ${RPTDIR} ${OUTPUTDIR}
+do
+    if [ ! -d ${i} ]
+    then
+        mkdir -p ${i}
+        if [ $? -ne 0 ]
+        then
+              echo "Cannot create directory: ${i}" | tee -a ${LOG}
+              exit 1
+        fi
+
+        chmod -f 755 ${i}
+    fi
+done
 
 #
-#  Write the configuration information to the diagnostic log.
+#  Perform pre-load tasks.
 #
-getConfigEnv -e >> ${LOG_DIAG}
+preload
 
 #
-#  Run the association loader.
+#  Call the association loader wrapper.
 #
 echo "\n`date`" >> ${LOG_PROC}
-echo "Run the association loader application" >> ${LOG_PROC}
-${JAVA} ${JAVARUNTIMEOPTS} -classpath ${CLASSPATH} \
-        -DCONFIG=${COMMON_CONFIG},${DP_CONFIG},${ASSOCLOAD_CONFIG} \
-        -DJOBKEY=${JOBKEY} ${SYSPROPS} ${DLA_START}
+echo "Call the association loader wrapper" >> ${LOG_PROC}
+${ASSOCLOADER_SH} ${DP_CONFIG} ${JOBKEY} >> ${LOG_DIAG}
 STAT=$?
 if [ ${STAT} -ne 0 ]
 then
-    echo "Association loader application failed.  Return status: ${STAT}" >> ${LOG_PROC}
+    postload
     exit 1
 fi
-echo "Association loader application completed successfully" >> ${LOG_PROC}
 
 #
-#  Generate the association loader QC reports.
+#  Perform post-load tasks.
 #
-echo "\n`date`" >> ${LOG_PROC}
-echo "Generate the association loader QC reports" >> ${LOG_PROC}
-${ASSOCLOADER_QCRPT} ${RPTDIR} ${RADAR_DBSERVER} ${RADAR_DBNAME} ${MGD_DBNAME} ${JOBKEY} >> ${LOG_DIAG}
-STAT=$?
-if [ ${STAT} -ne 0 ]
-then
-    echo "QC reports failed.  Return status: ${STAT}" >> ${LOG_PROC}
-    exit 1
-fi
-echo "QC reports completed successfully" >> ${LOG_PROC}
+postload
 
 exit 0
 
 
 #  $Log$
-#  Revision 1.1.2.1  2005/05/19 18:02:35  dbm
-#  TR 6574
-#
-#  Revision 1.1  2005/01/24 16:25:11  dbm
+#  Revision 1.1.2.1  2005/05/19 18:02:57  dbm
 #  New
 #
 #

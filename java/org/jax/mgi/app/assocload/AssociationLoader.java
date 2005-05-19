@@ -5,11 +5,19 @@ package org.jax.mgi.app.assocload;
 
 import java.util.Vector;
 
-import org.jax.mgi.dbs.mgd.AccessionLib;
+import org.jax.mgi.dbs.SchemaConstants;
+import org.jax.mgi.shr.config.AssociationLoaderCfg;
+import org.jax.mgi.shr.config.BCPManagerCfg;
+import org.jax.mgi.shr.dbutils.SQLDataManager;
+import org.jax.mgi.shr.dbutils.SQLDataManagerFactory;
 import org.jax.mgi.shr.dbutils.Table;
+import org.jax.mgi.shr.dbutils.bcp.BCPManager;
 import org.jax.mgi.shr.dbutils.dao.BCP_Stream;
+import org.jax.mgi.shr.dbutils.dao.SQLStream;
 import org.jax.mgi.shr.dla.loader.DLALoader;
 import org.jax.mgi.shr.exception.MGIException;
+import org.jax.mgi.shr.ioutils.InputDataFile;
+import org.jax.mgi.shr.ioutils.RecordDataIterator;
 
 /**
  * <pre>
@@ -59,6 +67,7 @@ import org.jax.mgi.shr.exception.MGIException;
  *           ACC_AccessionReference
  *           PRB_Reference (for clone associations only)
  *     - bcp records to the following RADAR database tables:
+ *           MGI_Association (if ASSOCLOAD_FROM_FILE = true)
  *           QC_AssocLoad_Target_Discrep
  *           QC_AssocLoad_Assoc_Discrep
  *     - log files
@@ -78,6 +87,11 @@ import org.jax.mgi.shr.exception.MGIException;
  *     This class extends the DLALoader class and uses the initialize() and
  *     run() methods to perform its tasks.  The DLAStart class provides the
  *     main() method and will invoke the DLALoader.
+ *
+ *     If the environment variable ASSOCLOAD_FROM_FILE is true, this application
+ *     will act as a data provider loader and load the MGI_Association table
+ *     from an input file.  Otherwise, it assumes that the MGI_Association table
+ *     has already been loaded by another application.
  *
  *     This application gets the records from the MGI_Association table for
  *     a given job key.  These records contain the accession IDs and logical DBs
@@ -102,6 +116,8 @@ import org.jax.mgi.shr.exception.MGIException;
  *
  *     If an association is allowed to be made and doesn't already exist, a bcp
  *     record is written for the ACC_Accession and ACC_AccessionReference tables.
+ *     For probe associations ONLY, a record is written for the PRB_Reference
+ *     table if the load reference doesn't already exist for the probe.
  *
  *     All records written to database tables are done using the bcp utility.
  *     See the "Outputs" section for a list of the tables that are loaded.
@@ -116,10 +132,15 @@ import org.jax.mgi.shr.exception.MGIException;
  *
  * Modules:
  *
+ *     org.jax.mgi.dbs
  *     org.jax.mgi.dbs.mgd
+ *     org.jax.mgi.shr.config
  *     org.jax.mgi.shr.dbutils
+ *     org.jax.mgi.shr.dbutils.bcp
+ *     org.jax.mgi.shr.dbutils.dao
  *     org.jax.mgi.shr.dla.loader
  *     org.jax.mgi.shr.exception
+ *     org.jax.mgi.shr.ioutils
  *
  * Tools Used: None
  *
@@ -139,6 +160,28 @@ public class AssociationLoader extends DLALoader
     /////////////////
     //  Variables  //
     /////////////////
+
+    // A flag to indicate whether the MGI_Association table needs to be loaded
+    // from an input file.
+    //
+    private boolean loadFromFile = false;
+
+    // A stream for writing bcp records to the MGI_Association table if the load
+    // is configured to perform this step.
+    //
+    private SQLStream radarStream = null;
+
+    // An input data file object for the input file (if needed).
+    //
+    private InputDataFile inFile = null;
+
+    // An interpreter for the input file (if needed).
+    //
+    private DPAssociationInterpreter interpreter = null;
+
+    // An iterator that gets one DP_Association object at a time (if needed).
+    //
+    private RecordDataIterator iter = null;
 
     // An object that performs preprocessing steps.
     //
@@ -169,6 +212,26 @@ public class AssociationLoader extends DLALoader
         throws MGIException
     {
         logger.logpInfo("Perform initialization",false);
+
+        // Determine if the MGI_Association table is to be loaded from an
+        // input file.
+        AssociationLoaderCfg assocLoadCfg = new AssociationLoaderCfg();
+        loadFromFile = assocLoadCfg.getLoadFromFile().booleanValue();
+
+        if (loadFromFile)
+        {
+            // Create an input data file object for the input file.
+            //
+            inFile = new InputDataFile();
+
+            // Create an interpreter for the input file.
+            //
+            interpreter = new DPAssociationInterpreter();
+
+            // Create an iterator that gets one DP_Association object at a time.
+            //
+            iter = inFile.getIterator(interpreter);
+        }
 
         // Create a AssociationLoadPreprocessor object for executing the
         // preprocessing steps.
@@ -217,6 +280,36 @@ public class AssociationLoader extends DLALoader
         if (qcStream.isBCP())
             ((BCP_Stream)qcStream).initBCPWriters(qcTables);
 
+        // If the MGI_Association table is being loaded from a file by this load,
+        // create an additional stream for writing bcp records to the RADAR
+        // database.
+        //
+        if (loadFromFile)
+        {
+            // Get a SQLDataManager and a BCPManager and use them to create a
+            // new stream.
+            //
+            SQLDataManager sqlMgr =
+                SQLDataManagerFactory.getShared(SchemaConstants.RADAR);
+            sqlMgr.setLogger(logger);
+            BCPManager bcpMgr =
+                new BCPManager(new BCPManagerCfg(SchemaConstants.RADAR));
+            bcpMgr.setLogger(logger);
+            radarStream = createSQLStream(dlaConfig.getLoadStreamName(),
+                                          sqlMgr, bcpMgr);
+
+            // Build a vector that contains a Table object for each table to be
+            // written to in the RADAR database.
+            //
+            Vector radarTables = new Vector();
+            radarTables.add(Table.getInstance("MGI_Association", sqlMgr));
+
+            // Initialize writers for each table if a BCP stream if being used.
+            //
+            if (radarStream.isBCP())
+                ((BCP_Stream)radarStream).initBCPWriters(radarTables);
+        }
+
         // Delete any existing associations for the load reference if the load
         // has been configured to delete them.
         //
@@ -236,12 +329,51 @@ public class AssociationLoader extends DLALoader
         throws MGIException
     {
         int count = 0;
-        MGIAssociation assoc = null;
+        DPAssociation dpAssoc = null;
+        MGIAssociation mgiAssoc = null;
 
         // Write a heading to the data validation log.
         //
         logger.logvInfo("\nAssociation Loader Validation Errors",false);
         logger.logvInfo("------------------------------------",false);
+
+        if (loadFromFile)
+        {
+            logger.logpInfo("Process the data provider input file",false);
+            logger.logdInfo("Process the data provider input file",true);
+
+            // Process each DP_Association object returned by the iterator.
+            //
+            while (iter.hasNext())
+            {
+                // Get the next DP_Association object from the iterator.
+                //
+                dpAssoc = (DPAssociation)iter.next();
+
+                // If the DP_Association object is null, it means that the
+                // interpreter processed the header record and did not create
+                // a DP_Association object.  Skip to the next iteration.
+                //
+                if (dpAssoc == null)
+                    continue;
+
+                if (count > 0 && count%10000 == 0)
+                    logger.logdInfo("Processed " + count + " input records",false);
+                count++;
+
+                // Send the DP_Association object to the stream.
+                //
+                dpAssoc.insert(radarStream);
+            }
+
+            logger.logdInfo("Processed " + count + " input records",false);
+
+            // Load the bcp file for the MGIAssociation table.
+            //
+            logger.logpInfo("Load the bcp file for the MGIAssociation table",false);
+            logger.logdInfo("Load the bcp file for the MGIAssociation table",true);
+            radarStream.close();
+        }
 
         // Create a MGIAssociationProcessor object for processing each
         // MGIAssociation object.
@@ -260,6 +392,7 @@ public class AssociationLoader extends DLALoader
         //
         logger.logpInfo("Process each MGI Association",false);
         logger.logdInfo("Process each MGI Association",true);
+        count = 0;
         while (assocGenerator.hasNext())
         {
             if (count > 0 && count%10000 == 0)
@@ -268,15 +401,15 @@ public class AssociationLoader extends DLALoader
 
             // Get the next MGIAssociation object.
             //
-            assoc = assocGenerator.next();
+            mgiAssoc = assocGenerator.next();
 
             if (logger.isDebug())
-                assoc.print(logger);
+                mgiAssoc.print(logger);
 
             // Pass the MGIAssociation object to the MGIAssociationProcessor for
             // processing.
             //
-            assocProcessor.process(assoc);
+            assocProcessor.process(mgiAssoc);
          }
 
         logger.logdInfo("Processed " + count + " MGI Associations",false);
@@ -329,6 +462,12 @@ public class AssociationLoader extends DLALoader
 
 
 //  $Log$
+//  Revision 1.2.2.1  2005/05/19 17:35:37  dbm
+//  TR 6574
+//
+//  Revision 1.2  2005/02/17 19:03:08  dbm
+//  Add PRB_Reference to table vector and fix curator summary log heading.
+//
 //  Revision 1.1  2005/01/24 17:19:15  dbm
 //  New
 //
