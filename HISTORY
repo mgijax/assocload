@@ -1,3 +1,11 @@
+TAG: assocload-3-4-0-0
+DATE: 11/7/2005
+STAFF: dbm
+RELEASE: development
+CHANGES:
+1) Removed Ensembl from ASSOCLOAD_SINGLE_OBJECT_DB setting
+2) Checked in data provider config files (DP.*)
+
 TAG: assocload-3-2-1-1
 DATE: 5/19/2005
 STAFF: dbm
