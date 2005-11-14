@@ -156,7 +156,7 @@ export MGI_ASSOCIATION_BCP_PRESQL
 ###########################################################################
 
 #  The name of the load for the subject of an email notification
-MAIL_LOADNAME="TIGR Load"
+MAIL_LOADNAME="TIGR Association Load"
 
 #  Recipient list for mailing the log files (comma-separated)
 MAIL_LOG_PROC="lec, dbm, sc"
