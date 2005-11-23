@@ -1,3 +1,9 @@
+TAG: assocload-3-4-0-2
+DATE: 11/23/2005
+STAFF: lec
+CHANGES: 
+1) added UniSTS to ASSOCLOAD_MULTIPLE_OBJECT_DB in AssocLoad.config.default
+
 TAG: assocload-3-4-0-1
 DATE: 11/14/2005
 STAFF: dbm
