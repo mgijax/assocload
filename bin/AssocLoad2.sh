@@ -1,16 +1,14 @@
 #!/bin/sh
 #
-#  AssocLoadDP2.sh
+#  AssocLoad2.sh
 ###########################################################################
 #
-#  Purpose:  This script is a wrapper that is used when the association
-#            loader needs to handle the loading of the MGI_Association
-#            table from an association input file as the first step in
-#            its processing.
+#  Purpose:  This script controls the execution of the association loader.
+#	     and accepts mulitple configuration files.
 #
 #  Usage:
 #
-#      AssocLoadDP2.sh config file [config_file2 ... config_fileN]
+#      AssocLoad2.sh config file [config_file2 ... config_fileN]
 #
 #  Env Vars:
 #
@@ -139,34 +137,6 @@ else
 fi
 
 #
-#  Create any required directories that don't already exist.
-#
-for i in ${FILEDIR} ${ARCHIVEDIR} ${LOGDIR} ${RPTDIR} ${OUTPUTDIR}
-do
-    if [ ! -d ${i} ]
-    then
-        mkdir -p ${i}
-        if [ $? -ne 0 ]
-        then
-              echo "Cannot create directory: ${i}" | tee -a ${LOG}
-              exit 1
-        fi
-
-        chmod -f 755 ${i}
-    fi
-done
-
-#
-#  Perform pre-load tasks.
-#
-preload
-
-#
-#  Write the configuration information to the diagnostic log.
-#
-getConfigEnv -e >> ${LOG_DIAG}
-
-#
 #  Run the association loader.
 #
 echo "\n`date`" >> ${LOG_PROC}
@@ -183,31 +153,18 @@ fi
 echo "Association loader application completed successfully" >> ${LOG_PROC}
 
 #
-#  Perform post-load tasks.
+#  Generate the association loader QC reports.
 #
-postload
+echo "\n`date`" >> ${LOG_PROC}
+echo "Generate the association loader QC reports" >> ${LOG_PROC}
+${ASSOCLOADER_QCRPT} ${RPTDIR} ${RADAR_DBSERVER} ${RADAR_DBNAME} ${MGD_DBNAME} ${JOBKEY} >> ${LOG_DIAG}
+STAT=$?
+if [ ${STAT} -ne 0 ]
+then
+    echo "QC reports failed.  Return status: ${STAT}" >> ${LOG_PROC}
+    exit 1
+fi
+echo "QC reports completed successfully" >> ${LOG_PROC}
 
 exit 0
 
-###########################################################################
-#
-# Warranty Disclaimer and Copyright Notice
-#
-#  THE JACKSON LABORATORY MAKES NO REPRESENTATION ABOUT THE SUITABILITY OR
-#  ACCURACY OF THIS SOFTWARE OR DATA FOR ANY PURPOSE, AND MAKES NO WARRANTIES,
-#  EITHER EXPRESS OR IMPLIED, INCLUDING MERCHANTABILITY AND FITNESS FOR A
-#  PARTICULAR PURPOSE OR THAT THE USE OF THIS SOFTWARE OR DATA WILL NOT
-#  INFRINGE ANY THIRD PARTY PATENTS, COPYRIGHTS, TRADEMARKS, OR OTHER RIGHTS.
-#  THE SOFTWARE AND DATA ARE PROVIDED "AS IS".
-#
-#  This software and data are provided to enhance knowledge and encourage
-#  progress in the scientific community and are to be used only for research
-#  and educational purposes.  Any reproduction or use for commercial purpose
-#  is prohibited without the prior express written permission of The Jackson
-#  Laboratory.
-#
-# Copyright \251 1996, 1999, 2002, 2005 by The Jackson Laboratory
-#
-# All Rights Reserved
-#
-###########################################################################
