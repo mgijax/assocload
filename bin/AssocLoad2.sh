@@ -6,6 +6,8 @@
 #  Purpose:  This script controls the execution of the association loader.
 #	     and accepts mulitple configuration files.
 #
+#	     It should be used if you using the association loader to load
+#	     data from the input file defined by 
 #  Usage:
 #
 #      AssocLoad2.sh config file [config_file2 ... config_fileN]
@@ -137,6 +139,11 @@ else
 fi
 
 #
+#  Perform pre-load tasks.
+#
+preload
+
+#
 #  Run the association loader.
 #
 echo "\n`date`" >> ${LOG_PROC}
@@ -165,6 +172,11 @@ then
     exit 1
 fi
 echo "QC reports completed successfully" >> ${LOG_PROC}
+
+#
+#  Perform post-load tasks.
+#
+postload
 
 exit 0
 
