@@ -6,8 +6,10 @@
 #  Purpose:  This script controls the execution of the association loader.
 #	     and accepts mulitple configuration files.
 #
-#	     It should be used if you using the association loader to load
-#	     data from the input file defined by 
+#	     It should be used if you are using the association loader to 
+#	     load data from the input file defined by the configuration 
+#	     variable INFILE_NAME.
+#
 #  Usage:
 #
 #      AssocLoad2.sh config file [config_file2 ... config_fileN]
