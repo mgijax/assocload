@@ -1,4 +1,9 @@
 Use the common DLAInstall script to install this product as follows:
 
-${USRLOCALMGI}/dbutils/dlautils/DLAInstall -n ${USRLOCALMGI}/etc/common.config.sh AssocLoad.config
+1) cp AssocLoad.config.default AssocLoad.config
+   edit as necessary
+
+A typical Install is done from assocload root directory:
+
+2) ${USRLOCALMGI}/dbutils/dlautils/DLAInstall -n ${USRLOCALMGI}/etc/common.config.sh AssocLoad.config
 
