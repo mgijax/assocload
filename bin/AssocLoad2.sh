@@ -20,7 +20,6 @@
 #
 #  Inputs:
 #
-#      - Common configuration file (common.config.sh)
 #      - Data provider configuration files
 #      - Association input file
 #
@@ -77,37 +76,8 @@ then
 fi
 
 #
-# Verify and source the common configuration file.
-#
-
-COMMON_CONFIG=`pwd`/common.config.sh
-
-if [ ! -r ${COMMON_CONFIG} ]
-then
-    echo "Cannot read configuration file: ${COMMON_CONFIG}" | tee -a ${LOG}
-    exit 1
-fi
-
-. ${COMMON_CONFIG}
-
-#
-# Verify and source the command line config files.
-#
-
-config_files="${COMMON_CONFIG}"
-for config in $@
-do
-    if [ ! -r ${config} ]
-    then
-        echo "Cannot read configuration file: ${config}" | tee -a ${LOG}
-        exit 1
-    fi
-    config_files="${config_files},${config}"
-    . ${config}
-done
-
-#
 # Verify and source the Association Loader config file.
+# The Association Loader config file should source the master config file.
 # This should be the last config file sent to the association loader.
 #
 
@@ -120,6 +90,22 @@ then
 fi
 
 . ${ASSOCLOAD_CONFIG}
+
+#
+# Verify and source the command line config files.
+#
+
+config_files="${MGICONFIG}/master.config.sh"
+for config in $@
+do
+    if [ ! -r ${config} ]
+    then
+        echo "Cannot read configuration file: ${config}" | tee -a ${LOG}
+        exit 1
+    fi
+    config_files="${config_files},${config}"
+    . ${config}
+done
 
 config_files="${config_files},${ASSOCLOAD_CONFIG}"
 echo "config_files:${config_files}"
