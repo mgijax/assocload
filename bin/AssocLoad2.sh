@@ -77,24 +77,10 @@ then
 fi
 
 #
-# Verify and source the common configuration file.
-#
-
-COMMON_CONFIG=`pwd`/common.config.sh
-
-if [ ! -r ${COMMON_CONFIG} ]
-then
-    echo "Cannot read configuration file: ${COMMON_CONFIG}" | tee -a ${LOG}
-    exit 1
-fi
-
-. ${COMMON_CONFIG}
-
-#
 # Verify and source the command line config files.
 #
 
-config_files="${COMMON_CONFIG}"
+config_files=""
 for config in $@
 do
     if [ ! -r ${config} ]
