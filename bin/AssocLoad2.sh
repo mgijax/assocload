@@ -80,7 +80,7 @@ fi
 # Verify and source the command line config files.
 #
 
-config_files=""
+config_files="${MGICONFIG}/master.config.sh"
 for config in $@
 do
     if [ ! -r ${config} ]
