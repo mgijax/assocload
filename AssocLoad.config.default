@@ -6,6 +6,10 @@
 #  association loader and may override settings made by the data provider
 #  loader (DPL) config file.
 #
+#  NOTE:  The common config file (/usr/local/mgi/live/etc/common.config.sh)
+#         and the DPL config file should be run prior to this config file
+#         to set up any dependencies.
+#
 ###########################################################################
 
 ###########################################################################
@@ -14,21 +18,13 @@
 #
 ###########################################################################
 
-if [ "${MGICONFIG}" = "" ]
-then
-	MGICONFIG=/usr/local/mgi/live/mgiconfig
-	export MGICONFIG
-fi
-
-. ${MGICONFIG}/master.config.sh
-
 #  Installation directory for the association loader
 INSTALLDIR=${USRLOCALMGI}/dataload/assocload
 
 export INSTALLDIR
 
 #  Association loader QC report shell script
-ASSOCLOADER_QCRPT=${QCRPTS}/assocload/AssocLoadRpt.sh
+ASSOCLOADER_QCRPT=${QCRPTDIR}/assocload/AssocLoadRpt.sh
 
 export ASSOCLOADER_QCRPT
 
@@ -38,7 +34,7 @@ export ASSOCLOADER_QCRPT
 #
 ###########################################################################
 
-JAVA_LIB=${MGI_JAVALIB}/lib_java_core/core.jar:${MGI_JAVALIB}/lib_java_dbsmgd/dbsmgd.jar:${MGI_JAVALIB}/lib_java_dbsrdr/dbsrdr.jar:${MGI_JAVALIB}/lib_java_dla/dla.jar
+JAVA_LIB=${JAVAPATH}/lib_java_core/core.jar:${JAVAPATH}/lib_java_dbsmgd/dbsmgd.jar:${JAVAPATH}/lib_java_dbsrdr/dbsrdr.jar:${JAVAPATH}/lib_java_dla/dla.jar
 
 CLASSPATH=.:${INSTALLDIR}/assocload.jar:${JAVA_LIB}:${COMMON_CLASSPATH}
 
