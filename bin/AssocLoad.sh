@@ -1,5 +1,8 @@
 #!/bin/sh
 #
+#  $Header$
+#  $Name$
+#
 #  AssocLoad.sh
 ###########################################################################
 #
@@ -148,25 +151,6 @@ fi
 . ${ASSOCLOAD_CONFIG}
 
 #
-#  Establish the master configuration file name
-#
-CONFIG_MASTER=${MGICONFIG}/master.config.sh
-
-#
-#  Make sure the master config configuration file readable.
-#
-if [ ! -r ${CONFIG_MASTER} ]
-then
-    echo "Cannot read configuration file: ${CONFIG_MASTER}" | tee -a ${LOG}
-    exit 1
-fi
-
-#
-# Source the master configuration file
-#
-. ${CONFIG_MASTER}
-
-#
 #  Write the configuration information to the diagnostic log.
 #
 getConfigEnv -e >> ${LOG_DIAG}
@@ -177,7 +161,7 @@ getConfigEnv -e >> ${LOG_DIAG}
 echo "\n`date`" >> ${LOG_PROC}
 echo "Run the association loader application" >> ${LOG_PROC}
 ${JAVA} ${JAVARUNTIMEOPTS} -classpath ${CLASSPATH} \
-        -DCONFIG=${COMMON_CONFIG},${CONFIG_MASTER},${DP_CONFIG},${ASSOCLOAD_CONFIG} \
+        -DCONFIG=${COMMON_CONFIG},${DP_CONFIG},${ASSOCLOAD_CONFIG} \
         -DJOBKEY=${JOBKEY} ${SYSPROPS} ${DLA_START}
 STAT=$?
 if [ ${STAT} -ne 0 ]
@@ -203,3 +187,37 @@ echo "QC reports completed successfully" >> ${LOG_PROC}
 
 exit 0
 
+
+#  $Log$
+#  Revision 1.2  2005/05/19 18:55:18  dbm
+#  TR 6574
+#
+#  Revision 1.1.2.1  2005/05/19 18:02:35  dbm
+#  TR 6574
+#
+#  Revision 1.1  2005/01/24 16:25:11  dbm
+#  New
+#
+#
+###########################################################################
+#
+# Warranty Disclaimer and Copyright Notice
+#
+#  THE JACKSON LABORATORY MAKES NO REPRESENTATION ABOUT THE SUITABILITY OR
+#  ACCURACY OF THIS SOFTWARE OR DATA FOR ANY PURPOSE, AND MAKES NO WARRANTIES,
+#  EITHER EXPRESS OR IMPLIED, INCLUDING MERCHANTABILITY AND FITNESS FOR A
+#  PARTICULAR PURPOSE OR THAT THE USE OF THIS SOFTWARE OR DATA WILL NOT
+#  INFRINGE ANY THIRD PARTY PATENTS, COPYRIGHTS, TRADEMARKS, OR OTHER RIGHTS.
+#  THE SOFTWARE AND DATA ARE PROVIDED "AS IS".
+#
+#  This software and data are provided to enhance knowledge and encourage
+#  progress in the scientific community and are to be used only for research
+#  and educational purposes.  Any reproduction or use for commercial purpose
+#  is prohibited without the prior express written permission of The Jackson
+#  Laboratory.
+#
+# Copyright \251 1996, 1999, 2002, 2005 by The Jackson Laboratory
+#
+# All Rights Reserved
+#
+###########################################################################
