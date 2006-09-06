@@ -18,6 +18,10 @@
 #
 ###########################################################################
 
+# MGI Config
+MGICONFIG=${USRLOCALMGI}/mgiconfig
+export MGICONFIG
+
 #  Installation directory for the association loader
 INSTALLDIR=${USRLOCALMGI}/dataload/assocload
 
