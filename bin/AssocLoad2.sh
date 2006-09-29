@@ -80,15 +80,15 @@ fi
 # Verify and source the common configuration file.
 #
 
-COMMON_CONFIG=`pwd`/common.config.sh
+CONFIG_MASTER=${MGICONFIG}/master.config.sh
 
-if [ ! -r ${COMMON_CONFIG} ]
+if [ ! -r ${CONFIG_MASTER} ]
 then
-    echo "Cannot read configuration file: ${COMMON_CONFIG}" | tee -a ${LOG}
+    echo "Cannot read configuration file: ${CONFIG_MASTER}" | tee -a ${LOG}
     exit 1
 fi
 
-. ${COMMON_CONFIG}
+. ${CONFIG_MASTER}
 
 #
 #  Establish the master configuration file name
@@ -113,7 +113,7 @@ fi
 # Verify and source the command line config files.
 #
 
-config_files="${COMMON_CONFIG},${CONFIG_MASTER}"
+config_files="${CONFIG_MASTER}"
 for config in $@
 do
     if [ ! -r ${config} ]

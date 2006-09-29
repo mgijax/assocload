@@ -1,0 +1,69 @@
+#!/bin/sh -x
+
+#
+# Installation script for spseqload
+#
+# 1) cp AssocLoad.config.default AssocLoad.config
+# 2) Install 
+#
+
+Usage=Install
+
+#
+#  Function called when the install fails.
+#
+installFailed ()
+{
+    echo "Installation Failed: `date`"
+    exit 1
+}
+
+#
+#  Verify the arguments to the script, there shouldn't be any
+#
+if [ $# -ne 0 ]
+then
+    echo "Usage: ${Usage}"
+    installFailed
+fi
+
+#
+# Make sure config files exist
+#
+cd `dirname $0`
+
+# establish the config files
+ASSOC_CONFIG=AssocLoad.config
+
+# Make sure spseqload.config file exists and source it
+if [ -r ${ASSOC_CONFIG} ]
+then
+    echo "Source ${ASSOC_CONFIG}"
+    . ${ASSOC_CONFIG}
+else
+    echo "Cannot source configuration file: ${ASSOC_CONFIG}"
+    installFailed
+fi
+
+# Check to see if this is a development installation
+#
+DEV=""
+echo "DEV=${DEV}"
+if [ "${INSTALL_TYPE}" = "dev" ]
+then
+    DEV="-d"
+fi
+
+#
+# run DLAInstall for each configuration file
+#
+echo 'running DLAINSTALL'
+${DLAINSTALL} ${DEV}
+
+for c in DP.config.*
+do
+echo "Source ${c}"
+. ${c}
+${DLAINSTALL} ${DEV}
+done
+
