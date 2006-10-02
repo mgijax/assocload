@@ -72,7 +72,7 @@
 #  during configuration and initialization.
 #
 cd `dirname $0`/..
-LOG=`pwd`/AssocLoad.log
+LOG=${ASSOCLOAD}/AssocLoad.log
 rm -f ${LOG}
 
 #
@@ -94,7 +94,7 @@ fi
 #  Establish the configuration file names.
 #
 CONFIG_MASTER=${MGICONFIG}/master.config.sh
-ASSOCLOAD_CONFIG=`pwd`/AssocLoad.config
+ASSOCLOAD_CONFIG=${ASSOCLOAD}/AssocLoad.config
 
 #
 #  Make sure the configuration files are readable.
