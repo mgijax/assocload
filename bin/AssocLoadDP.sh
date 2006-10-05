@@ -62,7 +62,7 @@
 #  during configuration and initialization.
 #
 cd `dirname $0`/..
-LOG=./AssocLoad.log
+LOG=`pwd`/AssocLoad.log
 rm -f ${LOG}
 
 #

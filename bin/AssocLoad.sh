@@ -72,7 +72,7 @@
 #  during configuration and initialization.
 #
 cd `dirname $0`/..
-LOG=./AssocLoad.log
+LOG=`pwd`/AssocLoad.log
 rm -f ${LOG}
 
 #
@@ -93,7 +93,7 @@ fi
 #
 #  Establish the configuration file name.
 #
-ASSOCLOAD_CONFIG=./AssocLoad.config
+ASSOCLOAD_CONFIG=`pwd`/AssocLoad.config
 
 #
 #  Verify and Source the association load configuration file.

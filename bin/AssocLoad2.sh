@@ -64,7 +64,7 @@
 #  during configuration and initialization.
 #
 cd `dirname $0`/..
-LOG=./AssocLoad.log
+LOG=`pwd`/AssocLoad.log
 rm -f ${LOG}
 
 #
@@ -81,7 +81,7 @@ fi
 # This should be the last config file sent to the association loader.
 #
 
-ASSOCLOAD_CONFIG=./AssocLoad.config
+ASSOCLOAD_CONFIG=`pwd`/AssocLoad.config
 
 if [ ! -r ${ASSOCLOAD_CONFIG} ]
 then
