@@ -26,7 +26,6 @@
 #
 #  Inputs:
 #
-#      - Common configuration file (common.config.sh)
 #      - Association loader configuration file (AssocLoad.config)
 #      - Data provider loader configuration file (first argument)
 #      - Additional arguments (see Usage)
@@ -91,21 +90,6 @@ else
 fi
 
 #
-#  Establish the configuration file name.
-#
-ASSOCLOAD_CONFIG=`pwd`/AssocLoad.config
-
-#
-#  Verify and Source the association load configuration file.
-#
-if [ ! -r ${ASSOCLOAD_CONFIG} ]
-then
-    echo "Cannot read configuration file: ${ASSOCLOAD_CONFIG}" | tee -a ${LOG}
-    exit 1
-fi
-. ${ASSOCLOAD_CONFIG}
-
-#
 #  Verify and Source the data provider configuration file.
 #
 if [ ! -r ${DP_CONFIG} ]
@@ -114,6 +98,22 @@ then
     exit 1
 fi
 . ${DP_CONFIG}
+
+#
+#  Establish the configuration file name.
+#
+ASSOCLOAD_CONFIG=`pwd`/AssocLoad.config
+
+#
+#  Verify and Source the association load configuration file.
+#  Must be sourced *after* any configuration file that sets CLASSPATH.
+#
+if [ ! -r ${ASSOCLOAD_CONFIG} ]
+then
+    echo "Cannot read configuration file: ${ASSOCLOAD_CONFIG}" | tee -a ${LOG}
+    exit 1
+fi
+. ${ASSOCLOAD_CONFIG}
 
 #
 #  Source the common DLA functions script.
@@ -152,6 +152,12 @@ getConfigEnv -e >> ${LOG_DIAG}
 #
 echo "\n`date`" >> ${LOG_PROC}
 echo "Run the association loader application" >> ${LOG_PROC}
+echo "${CONFIG_MASTER}" >> ${LOG_PROC}
+echo "${DP_CONFIG}" >> ${LOG_PROC}
+echo "${ASSOCLOAD_CONFIG}" >> ${LOG_PROC}
+echo "${JOBKEY}" >> ${LOG_PROC}
+echo "${DLA_START}" >> ${LOG_PROC}
+echo "${CLASSPATH}" >> ${LOG_PROC}
 ${JAVA} ${JAVARUNTIMEOPTS} -classpath ${CLASSPATH} \
         -DCONFIG=${CONFIG_MASTER},${DP_CONFIG},${ASSOCLOAD_CONFIG} \
         -DJOBKEY=${JOBKEY} ${SYSPROPS} ${DLA_START}

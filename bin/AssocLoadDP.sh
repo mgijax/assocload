@@ -18,7 +18,6 @@
 #
 #  Inputs:
 #
-#      - Common configuration file (common.config.sh)
 #      - Data provider configuration file (DP.config.[data provider name])
 #      - Association input file
 #

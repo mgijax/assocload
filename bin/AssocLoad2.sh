@@ -20,7 +20,6 @@
 #
 #  Inputs:
 #
-#      - Common configuration file (common.config.sh)
 #      - Data provider configuration files
 #      - Association input file
 #
