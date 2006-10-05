@@ -92,10 +92,14 @@ fi
 . ${ASSOCLOAD_CONFIG}
 
 #
-# set the master configuration filename
+# Set and verify the master configuration file name
 #
-
 CONFIG_MASTER=${MGICONFIG}/master.config.sh
+if [ ! -r ${CONFIG_MASTER} ]
+then
+    echo "Cannot read configuration file: ${CONFIG_MASTER}" | tee -a ${LOG}
+    exit 1
+fi
 
 #
 # Verify and source the command line config files.
