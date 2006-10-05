@@ -1,3 +1,10 @@
+TAG: assocload-tr7894-4
+DATE: 10/05/2006
+STAFF: lec
+CHANGES: 
+1) TR7894;mgiconfig
+2) fix to DPAssociationInterpreter.java class (line 117): split(); add length argument
+
 TAG: assocload-tr7894-3
 DATE: 10/02/2006
 STAFF: lec
