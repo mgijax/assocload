@@ -75,29 +75,19 @@ then
 fi
 
 #
-#  Establish the configuration file names.
+#  Establish the configuration file name.
 #
-CONFIG_MASTER=${MGICONFIG}/master.config.sh
 DP_CONFIG=$1
 
 #
-#  Make sure the configuration files are readable.
+#  Verify & Source the common DLA functions script.
 #
-if [ ! -r ${CONFIG_MASTER} ]
-then
-    echo "Cannot read configuration file: ${CONFIG_MASTER}" | tee -a ${LOG}
-    exit 1
-fi
 if [ ! -r ${DP_CONFIG} ]
 then
     echo "Cannot read configuration file: ${DP_CONFIG}" | tee -a ${LOG}
     exit 1
 fi
-
-#
-#  Source the common configuration file.
-#
-. ${CONFIG_MASTER}
+. ${DP_CONFIG}
 
 #
 #  Source the common DLA functions script.
@@ -115,11 +105,6 @@ else
     echo "Environment variable DLAJOBSTREAMFUNC has not been defined." | tee -a ${LOG}
     exit 1
 fi
-
-#
-#  Source the data provider configuration file.
-#
-. ${DP_CONFIG}
 
 #
 #  Create any required directories that don't already exist.

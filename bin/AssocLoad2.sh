@@ -77,55 +77,6 @@ then
 fi
 
 #
-# Verify and source the common configuration file.
-#
-
-CONFIG_MASTER=${MGICONFIG}/master.config.sh
-
-if [ ! -r ${CONFIG_MASTER} ]
-then
-    echo "Cannot read configuration file: ${CONFIG_MASTER}" | tee -a ${LOG}
-    exit 1
-fi
-
-. ${CONFIG_MASTER}
-
-#
-#  Establish the master configuration file name
-#
-CONFIG_MASTER=${MGICONFIG}/master.config.sh
-
-#
-#  Make sure the master config configuration file readable.
-#
-if [ ! -r ${CONFIG_MASTER} ]
-then
-    echo "Cannot read configuration file: ${CONFIG_MASTER}" | tee -a ${LOG}
-    exit 1
-fi
-
-#
-# Source the master configuration file
-#
-. ${CONFIG_MASTER}
-
-#
-# Verify and source the command line config files.
-#
-
-config_files="${CONFIG_MASTER}"
-for config in $@
-do
-    if [ ! -r ${config} ]
-    then
-        echo "Cannot read configuration file: ${config}" | tee -a ${LOG}
-        exit 1
-    fi
-    config_files="${config_files},${config}"
-    . ${config}
-done
-
-#
 # Verify and source the Association Loader config file.
 # This should be the last config file sent to the association loader.
 #
@@ -140,7 +91,29 @@ fi
 
 . ${ASSOCLOAD_CONFIG}
 
-config_files="${config_files},${ASSOCLOAD_CONFIG}"
+#
+# set the master configuration filename
+#
+
+CONFIG_MASTER=${MGICONFIG}/master.config.sh
+
+#
+# Verify and source the command line config files.
+#
+
+config_files=""
+for config in $@
+do
+    if [ ! -r ${config} ]
+    then
+        echo "Cannot read configuration file: ${config}" | tee -a ${LOG}
+        exit 1
+    fi
+    config_files="${config_files}${config},"
+    . ${config}
+done
+
+config_files="${config_files}${CONFIG_MASTER},${ASSOCLOAD_CONFIG}"
 echo "config_files:${config_files}"
 
 #

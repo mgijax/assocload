@@ -91,34 +91,29 @@ else
 fi
 
 #
-#  Establish the configuration file names.
+#  Establish the configuration file name.
 #
-CONFIG_MASTER=${MGICONFIG}/master.config.sh
 ASSOCLOAD_CONFIG=${ASSOCLOAD}/AssocLoad.config
 
 #
-#  Make sure the configuration files are readable.
+#  Verify and Source the association load configuration file.
 #
-if [ ! -r ${CONFIG_MASTER} ]
-then
-    echo "Cannot read configuration file: ${CONFIG_MASTER}" | tee -a ${LOG}
-    exit 1
-fi
-if [ ! -r ${DP_CONFIG} ]
-then
-    echo "Cannot read configuration file: ${DP_CONFIG}" | tee -a ${LOG}
-    exit 1
-fi
 if [ ! -r ${ASSOCLOAD_CONFIG} ]
 then
     echo "Cannot read configuration file: ${ASSOCLOAD_CONFIG}" | tee -a ${LOG}
     exit 1
 fi
+. ${ASSOCLOAD_CONFIG}
 
 #
-#  Source the master configuration file.
+#  Verify and Source the data provider configuration file.
 #
-. ${CONFIG_MASTER}
+if [ ! -r ${DP_CONFIG} ]
+then
+    echo "Cannot read configuration file: ${DP_CONFIG}" | tee -a ${LOG}
+    exit 1
+fi
+. ${DP_CONFIG}
 
 #
 #  Source the common DLA functions script.
@@ -138,14 +133,9 @@ else
 fi
 
 #
-#  Source the data provider configuration file.
+# Set the master configuration file name
 #
-. ${DP_CONFIG}
-
-#
-#  Source the association loader configuration file.
-#
-. ${ASSOCLOAD_CONFIG}
+CONFIG_MASTER=${MGICONFIG}/master.config.sh
 
 #
 #  Write the configuration information to the diagnostic log.
