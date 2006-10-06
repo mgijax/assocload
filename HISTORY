@@ -1,3 +1,11 @@
+TAG: assocload-tr7894-9
+DATE: 10/06/2006
+STAFF: sc
+CHANGES:
+1) AssocLoad.config - Added ensembl, ncbi, vega to ASSOCLOAD_MULTIPLE_OBJECT_DB
+2) AssocLoad.sh - source AssocLoad.config after command line config file(s)
+   to override classpath
+
 TAG: assocload-tr7894-8
 TAG: assocload-tr7894-7
 TAG: assocload-tr7894-6

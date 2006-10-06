@@ -88,8 +88,6 @@ then
     exit 1
 fi
 
-. ${ASSOCLOAD_CONFIG}
-
 #
 # Set and verify the master configuration file name
 #
@@ -117,7 +115,9 @@ do
 done
 
 config_files="${config_files}${CONFIG_MASTER},${ASSOCLOAD_CONFIG}"
-echo "config_files:${config_files}"
+
+# source after command line config files to override their classpath
+. ${ASSOCLOAD_CONFIG}
 
 #
 #  Source the common DLA functions script.
