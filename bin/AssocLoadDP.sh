@@ -76,6 +76,21 @@ fi
 #
 #  Establish the configuration file name.
 #
+ASSOCLOAD_CONFIG=`pwd`/AssocLoad.config
+
+#
+#  Verify and Source the association load configuration file.
+#
+if [ ! -r ${ASSOCLOAD_CONFIG} ]
+then
+    echo "Cannot read configuration file: ${ASSOCLOAD_CONFIG}" | tee -a ${LOG}
+    exit 1
+fi
+. ${ASSOCLOAD_CONFIG}
+
+#
+#  Establish the configuration file name.
+#
 DP_CONFIG=$1
 
 #

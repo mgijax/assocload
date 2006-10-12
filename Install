@@ -1,7 +1,7 @@
 #!/bin/sh -x
 
 #
-# Installation script for spseqload
+# Installation script
 #
 # 1) cp AssocLoad.config.default AssocLoad.config
 # 2) Install 
