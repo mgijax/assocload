@@ -1,8 +1,5 @@
 #!/bin/sh
 #
-#  $Header$
-#  $Name$
-#
 #  AssocLoadDP.sh
 ###########################################################################
 #
@@ -21,7 +18,6 @@
 #
 #  Inputs:
 #
-#      - Common configuration file (common.config.sh)
 #      - Data provider configuration file (DP.config.[data provider name])
 #      - Association input file
 #
@@ -78,29 +74,34 @@ then
 fi
 
 #
-#  Establish the configuration file names.
+#  Establish the configuration file name.
 #
-COMMON_CONFIG=`pwd`/common.config.sh
+ASSOCLOAD_CONFIG=`pwd`/AssocLoad.config
+
+#
+#  Verify and Source the association load configuration file.
+#
+if [ ! -r ${ASSOCLOAD_CONFIG} ]
+then
+    echo "Cannot read configuration file: ${ASSOCLOAD_CONFIG}" | tee -a ${LOG}
+    exit 1
+fi
+. ${ASSOCLOAD_CONFIG}
+
+#
+#  Establish the configuration file name.
+#
 DP_CONFIG=$1
 
 #
-#  Make sure the configuration files are readable.
+#  Verify & Source the common DLA functions script.
 #
-if [ ! -r ${COMMON_CONFIG} ]
-then
-    echo "Cannot read configuration file: ${COMMON_CONFIG}" | tee -a ${LOG}
-    exit 1
-fi
 if [ ! -r ${DP_CONFIG} ]
 then
     echo "Cannot read configuration file: ${DP_CONFIG}" | tee -a ${LOG}
     exit 1
 fi
-
-#
-#  Source the common configuration file.
-#
-. ${COMMON_CONFIG}
+. ${DP_CONFIG}
 
 #
 #  Source the common DLA functions script.
@@ -118,11 +119,6 @@ else
     echo "Environment variable DLAJOBSTREAMFUNC has not been defined." | tee -a ${LOG}
     exit 1
 fi
-
-#
-#  Source the data provider configuration file.
-#
-. ${DP_CONFIG}
 
 #
 #  Create any required directories that don't already exist.
@@ -167,34 +163,3 @@ postload
 
 exit 0
 
-
-#  $Log$
-#  Revision 1.2  2005/05/19 18:55:18  dbm
-#  TR 6574
-#
-#  Revision 1.1.2.1  2005/05/19 18:02:57  dbm
-#  New
-#
-#
-###########################################################################
-#
-# Warranty Disclaimer and Copyright Notice
-#
-#  THE JACKSON LABORATORY MAKES NO REPRESENTATION ABOUT THE SUITABILITY OR
-#  ACCURACY OF THIS SOFTWARE OR DATA FOR ANY PURPOSE, AND MAKES NO WARRANTIES,
-#  EITHER EXPRESS OR IMPLIED, INCLUDING MERCHANTABILITY AND FITNESS FOR A
-#  PARTICULAR PURPOSE OR THAT THE USE OF THIS SOFTWARE OR DATA WILL NOT
-#  INFRINGE ANY THIRD PARTY PATENTS, COPYRIGHTS, TRADEMARKS, OR OTHER RIGHTS.
-#  THE SOFTWARE AND DATA ARE PROVIDED "AS IS".
-#
-#  This software and data are provided to enhance knowledge and encourage
-#  progress in the scientific community and are to be used only for research
-#  and educational purposes.  Any reproduction or use for commercial purpose
-#  is prohibited without the prior express written permission of The Jackson
-#  Laboratory.
-#
-# Copyright \251 1996, 1999, 2002, 2005 by The Jackson Laboratory
-#
-# All Rights Reserved
-#
-###########################################################################

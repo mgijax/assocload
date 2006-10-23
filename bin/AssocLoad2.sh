@@ -20,7 +20,6 @@
 #
 #  Inputs:
 #
-#      - Common configuration file (common.config.sh)
 #      - Data provider configuration files
 #      - Association input file
 #
@@ -77,55 +76,6 @@ then
 fi
 
 #
-# Verify and source the common configuration file.
-#
-
-COMMON_CONFIG=`pwd`/common.config.sh
-
-if [ ! -r ${COMMON_CONFIG} ]
-then
-    echo "Cannot read configuration file: ${COMMON_CONFIG}" | tee -a ${LOG}
-    exit 1
-fi
-
-. ${COMMON_CONFIG}
-
-#
-#  Establish the master configuration file name
-#
-CONFIG_MASTER=${MGICONFIG}/master.config.sh
-
-#
-#  Make sure the master config configuration file readable.
-#
-if [ ! -r ${CONFIG_MASTER} ]
-then
-    echo "Cannot read configuration file: ${CONFIG_MASTER}" | tee -a ${LOG}
-    exit 1
-fi
-
-#
-# Source the master configuration file
-#
-. ${CONFIG_MASTER}
-
-#
-# Verify and source the command line config files.
-#
-
-config_files="${COMMON_CONFIG},${CONFIG_MASTER}"
-for config in $@
-do
-    if [ ! -r ${config} ]
-    then
-        echo "Cannot read configuration file: ${config}" | tee -a ${LOG}
-        exit 1
-    fi
-    config_files="${config_files},${config}"
-    . ${config}
-done
-
-#
 # Verify and source the Association Loader config file.
 # This should be the last config file sent to the association loader.
 #
@@ -138,10 +88,36 @@ then
     exit 1
 fi
 
-. ${ASSOCLOAD_CONFIG}
+#
+# Set and verify the master configuration file name
+#
+CONFIG_MASTER=${MGICONFIG}/master.config.sh
+if [ ! -r ${CONFIG_MASTER} ]
+then
+    echo "Cannot read configuration file: ${CONFIG_MASTER}" | tee -a ${LOG}
+    exit 1
+fi
 
-config_files="${config_files},${ASSOCLOAD_CONFIG}"
-echo "config_files:${config_files}"
+#
+# Verify and source the command line config files.
+#
+
+config_files=""
+for config in $@
+do
+    if [ ! -r ${config} ]
+    then
+        echo "Cannot read configuration file: ${config}" | tee -a ${LOG}
+        exit 1
+    fi
+    config_files="${config_files}${config},"
+    . ${config}
+done
+
+config_files="${config_files}${CONFIG_MASTER},${ASSOCLOAD_CONFIG}"
+
+# source after command line config files to override their classpath
+. ${ASSOCLOAD_CONFIG}
 
 #
 #  Source the common DLA functions script.

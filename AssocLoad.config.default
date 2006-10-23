@@ -18,17 +18,20 @@
 #
 ###########################################################################
 
-# MGI Config
-MGICONFIG=${USRLOCALMGI}/mgiconfig
-export MGICONFIG
+#
+#  If the MGICONFIG environment variable does not have a local override,
+#  use the default "live" settings.
+#
+if [ "${MGICONFIG}" = "" ]
+then
+    MGICONFIG=/usr/local/mgi/live/mgiconfig
+    export MGICONFIG
+fi
 
-#  Installation directory for the association loader
-INSTALLDIR=${USRLOCALMGI}/dataload/assocload
-
-export INSTALLDIR
+. ${MGICONFIG}/master.config.sh
 
 #  Association loader QC report shell script
-ASSOCLOADER_QCRPT=${QCRPTDIR}/assocload/AssocLoadRpt.sh
+ASSOCLOADER_QCRPT=${QCRPTS}/assocload/AssocLoadRpt.sh
 
 export ASSOCLOADER_QCRPT
 
@@ -38,9 +41,9 @@ export ASSOCLOADER_QCRPT
 #
 ###########################################################################
 
-JAVA_LIB=${JAVAPATH}/lib_java_core/core.jar:${JAVAPATH}/lib_java_dbsmgd/dbsmgd.jar:${JAVAPATH}/lib_java_dbsrdr/dbsrdr.jar:${JAVAPATH}/lib_java_dla/dla.jar
+JAVA_LIB=${MGI_JAVALIB}/lib_java_core/core.jar:${MGI_JAVALIB}/lib_java_dbsmgd/dbsmgd.jar:${MGI_JAVALIB}/lib_java_dbsrdr/dbsrdr.jar:${MGI_JAVALIB}/lib_java_dla/dla.jar
 
-CLASSPATH=.:${INSTALLDIR}/assocload.jar:${JAVA_LIB}:${COMMON_CLASSPATH}
+CLASSPATH=.:${ASSOCLOAD}/assocload.jar:${JAVA_LIB}:${COMMON_CLASSPATH}
 
 export JAVA_LIB CLASSPATH
 
@@ -54,7 +57,7 @@ export JAVA_LIB CLASSPATH
 ASSOCLOAD_SINGLE_OBJECT_DB="MGC,BROAD,miRBase"
 
 #  Logical DBs that can be associated with multiple MGI objects
-ASSOCLOAD_MULTIPLE_OBJECT_DB="Sequence DB,TIGR,DOTS,NIA Mouse Gene Index,UniSTS"
+ASSOCLOAD_MULTIPLE_OBJECT_DB="Sequence DB,TIGR,DOTS,NIA Mouse Gene Index,UniSTS,SWISS-PROT,TrEMBL,EC,PDB,VEGA Gene Model,Ensembl Gene Model,NCBI Gene Model"
 
 export ASSOCLOAD_SINGLE_OBJECT_DB ASSOCLOAD_MULTIPLE_OBJECT_DB
 
@@ -80,3 +83,9 @@ DLA_TRUNCATE_LOAD_TABLES=
 DLA_TRUNCATE_QC_TABLES=QC_AssocLoad_Target_Discrep,QC_AssocLoad_Assoc_Discrep
 
 export DLA_TRUNCATE_LOAD_TABLES DLA_TRUNCATE_QC_TABLES
+
+#  Installation directory for the association loader
+INSTALLDIR=${ASSOCLOAD}
+
+export INSTALLDIR
+

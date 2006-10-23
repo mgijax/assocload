@@ -16,41 +16,10 @@
 #
 ###########################################################################
 
-#  Installation directory for the association loader
-ASSOCLOADERDIR=${USRLOCALMGI}/dataload/assocload
-
 #  Association Loader shell script
-ASSOCLOADER_SH=${ASSOCLOADERDIR}/bin/AssocLoad.sh
+ASSOCLOADER_SH=${ASSOCLOAD}/bin/AssocLoad.sh
 
-export ASSOCLOADERDIR ASSOCLOADER_SH
-
-###########################################################################
-#
-#  DATABASE SETTINGS
-#
-###########################################################################
-
-#  Connection parameters for the RADAR database
-RADAR_DBSERVER=PROD_MGI
-RADAR_DBNAME=radar
-RADAR_DBUSER=mgd_dbo
-RADAR_DBPASSWORDFILE=${MGIDBUTILSDIR}/.mgd_dbo_password
-RADAR_DBSCHEMADIR=${RADARDBSCHEMADIR}
-RADAR_DBURL=shire.informatics.jax.org:4100
-
-export RADAR_DBSERVER RADAR_DBNAME RADAR_DBUSER RADAR_DBPASSWORDFILE
-export RADAR_DBSCHEMADIR RADAR_DBURL
-
-#  Connection parameters for the MGD database
-MGD_DBSERVER=PROD_MGI
-MGD_DBNAME=mgd
-MGD_DBUSER=mgd_dbo
-MGD_DBPASSWORDFILE=${MGIDBUTILSDIR}/.mgd_dbo_password
-MGD_DBSCHEMADIR=${MGDDBSCHEMADIR}
-MGD_DBURL=shire.informatics.jax.org:4100
-
-export MGD_DBSERVER MGD_DBNAME MGD_DBUSER MGD_DBPASSWORDFILE
-export MGD_DBSCHEMADIR MGD_DBURL
+export ASSOCLOADER_SH
 
 ###########################################################################
 #
@@ -159,7 +128,7 @@ export MGI_ASSOCIATION_BCP_PRESQL
 MAIL_LOADNAME="TIGR Association Load"
 
 #  Recipient list for mailing the log files (comma-separated)
-MAIL_LOG_PROC="lec, dbm, sc"
-MAIL_LOG_CUR="lec, dbm, sc"
+MAIL_LOG_PROC="mgiadmin"
+MAIL_LOG_CUR="mgiadmin"
 
 export MAIL_LOADNAME MAIL_LOG_PROC MAIL_LOG_CUR

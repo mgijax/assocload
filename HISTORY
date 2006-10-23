@@ -1,3 +1,47 @@
+TAG: assocload-3-5-1-2
+DATE: 10/23/2006
+STAFF: lec
+CHANGES:
+1) branch tr7894 merge
+
+TAG: assocload-tr7894-10
+DATE: 10/12/2006
+STAFF: lec
+CHANGES:
+1) AssocLoadDP.sh - source AssocLoad.config 
+
+TAG: assocload-tr7894-9
+DATE: 10/06/2006
+STAFF: sc
+CHANGES:
+1) AssocLoad.config - Added ensembl, ncbi, vega to ASSOCLOAD_MULTIPLE_OBJECT_DB
+2) AssocLoad.sh - source AssocLoad.config after command line config file(s)
+   to override classpath
+
+TAG: assocload-tr7894-8
+TAG: assocload-tr7894-7
+TAG: assocload-tr7894-6
+TAG: assocload-tr7894-5
+TAG: assocload-tr7894-4
+DATE: 10/05/2006
+STAFF: lec
+CHANGES: 
+1) TR7894;mgiconfig
+2) fix to DPAssociationInterpreter.java class (line 117): split(); add length argument
+
+TAG: assocload-tr7894-3
+DATE: 10/02/2006
+STAFF: lec
+CHANGES: 
+1) TR7894;mgiconfig
+
+TAG: assocload-tr7894-2
+TAG: assocload-tr7894-1
+DATE: 09/29/2006
+STAFF: lec
+CHANGES: 
+1) TR7894;mgiconfig
+
 TAG: assocload-tr7894-BP
 DATE: 09/29/2006
 STAFF: lec

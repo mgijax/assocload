@@ -114,7 +114,7 @@ public class DPAssociationInterpreter implements RecordDataInterpreter
         // input record into tab-delimited fields.
         //
         s = rec.replaceFirst(AssociationLoadConstants.CRT,"");
-        String[] fields = s.split(AssociationLoadConstants.TAB);
+        String[] fields = s.split(AssociationLoadConstants.TAB, logicalDBs.length);
 
         // Throw an exception if the input record does not have the required
         // number of fields.
@@ -198,6 +198,12 @@ public class DPAssociationInterpreter implements RecordDataInterpreter
 
 
 //  $Log$
+//  Revision 1.2.8.1  2006/10/05 12:27:12  lec
+//  assocload-tr7894-4
+//
+//  Revision 1.2  2005/05/19 18:55:18  dbm
+//  TR 6574
+//
 //  Revision 1.1.2.1  2005/05/19 17:41:16  dbm
 //  New
 //
