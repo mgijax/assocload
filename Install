@@ -57,7 +57,6 @@ fi
 # run DLAInstall for each configuration file
 #
 echo 'running DLAINSTALL'
-${DLAINSTALL} ${DEV}
 
 for c in DP.config.*
 do

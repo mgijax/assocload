@@ -6,10 +6,6 @@
 #  association loader and may override settings made by the data provider
 #  loader (DPL) config file.
 #
-#  NOTE:  The common config file (/usr/local/mgi/live/etc/common.config.sh)
-#         and the DPL config file should be run prior to this config file
-#         to set up any dependencies.
-#
 ###########################################################################
 
 ###########################################################################
