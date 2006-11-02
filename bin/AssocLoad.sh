@@ -152,12 +152,6 @@ getConfigEnv -e >> ${LOG_DIAG}
 #
 echo "\n`date`" >> ${LOG_PROC}
 echo "Run the association loader application" >> ${LOG_PROC}
-echo "${CONFIG_MASTER}" >> ${LOG_PROC}
-echo "${DP_CONFIG}" >> ${LOG_PROC}
-echo "${ASSOCLOAD_CONFIG}" >> ${LOG_PROC}
-echo "${JOBKEY}" >> ${LOG_PROC}
-echo "${DLA_START}" >> ${LOG_PROC}
-echo "${CLASSPATH}" >> ${LOG_PROC}
 ${JAVA} ${JAVARUNTIMEOPTS} -classpath ${CLASSPATH} \
         -DCONFIG=${CONFIG_MASTER},${DP_CONFIG},${ASSOCLOAD_CONFIG} \
         -DJOBKEY=${JOBKEY} ${SYSPROPS} ${DLA_START}
