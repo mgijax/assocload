@@ -36,7 +36,7 @@ OUTPUTDIR=${FILEDIR}/output
 
 #  Complete path name of the input file
 INPUTDIR=${FILEDIR}/input
-INFILE_NAME=${INPUTDIR}/MGI_DFIC_load
+INFILE_NAME=${INPUTDIR}/MGI_DFCI_load
 
 #  Set the size of the memory buffer used when reading an input file
 INFILE_BUFFERSIZE=21000000
@@ -125,7 +125,7 @@ export MGI_ASSOCIATION_BCP_PRESQL
 ###########################################################################
 
 #  The name of the load for the subject of an email notification
-MAIL_LOADNAME="DFIC Association Load"
+MAIL_LOADNAME="DFCI Association Load"
 
 #  Recipient list for mailing the log files (comma-separated)
 MAIL_LOG_PROC="mgiadmin"

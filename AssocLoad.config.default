@@ -53,7 +53,7 @@ export JAVA_LIB CLASSPATH
 ASSOCLOAD_SINGLE_OBJECT_DB="MGC,BROAD,miRBase"
 
 #  Logical DBs that can be associated with multiple MGI objects
-ASSOCLOAD_MULTIPLE_OBJECT_DB="Sequence DB,TIGR,DOTS,NIA Mouse Gene Index,UniSTS,SWISS-PROT,TrEMBL,EC,PDB,VEGA Gene Model,Ensembl Gene Model,NCBI Gene Model"
+ASSOCLOAD_MULTIPLE_OBJECT_DB="Sequence DB,DFCI,TIGR,DOTS,NIA Mouse Gene Index,UniSTS,SWISS-PROT,TrEMBL,EC,PDB,VEGA Gene Model,Ensembl Gene Model,NCBI Gene Model"
 
 export ASSOCLOAD_SINGLE_OBJECT_DB ASSOCLOAD_MULTIPLE_OBJECT_DB
 
