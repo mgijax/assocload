@@ -5,7 +5,7 @@
 #  This file sets up environment variables that are needed for a specific
 #  data provider input file to be handled by the association loader.
 #
-#  NOTE:  The common config file (/usr/local/mgi/live/etc/common.config.sh)
+#  NOTE:  The common config file (/usr/local/mgi/live/mgiconfig/master.config.sh)
 #         should be run prior to this file to set up any dependencies.
 #
 ###########################################################################
