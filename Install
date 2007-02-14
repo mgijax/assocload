@@ -58,10 +58,17 @@ fi
 #
 echo 'running DLAINSTALL'
 
+. DP.config.dfci
+${DLAINSTALL} ${DEV}
+
 for c in DP.config.*
 do
 echo "Source ${c}"
 . ${c}
-${DLAINSTALL} ${DEV}
+mkdir -p ${FILEDIR}/archive
+mkdir -p ${FILEDIR}/logs
+mkdir -p ${FILEDIR}/reports
+mkdir -p ${FILEDIR}/output
+mkdir -p ${FILEDIR}/input
 done
 
