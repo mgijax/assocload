@@ -1,3 +1,10 @@
+TAG: assocload-3-5-3-1
+DATE: 04/06/2007
+STAFF: sc
+CHANGES: TR8091 - Gene Trap Lite
+1) Added DP.config.genetrap 
+2) AssocLoad.config - added 8 IGTC and Lexicon to list of logicalDBs
+
 TAG: assocload-3-5-1-10
 DATE: 12/19/2006
 STAFF: lec
