@@ -36,7 +36,7 @@ OUTPUTDIR=${FILEDIR}/output
 
 #  Complete path name of the input file
 INPUTDIR=${FILEDIR}/input
-INFILE_NAME=${INPUTDIR}/mgi_ensembl
+INFILE_NAME=${INPUTDIR}/ENSEMBL_AssociationLoad
 
 #  Set the size of the memory buffer used when reading an input file
 INFILE_BUFFERSIZE=21000000
@@ -55,7 +55,7 @@ export INPUTDIR INFILE_NAME INFILE_BUFFERSIZE
 export LOG_PROC LOG_DIAG LOG_CUR LOG_VAL LOG_DEBUG
 
 #  The J-Number for the load
-J_NUMBER=J:78288
+J_NUMBER=J:91388
 
 #  The name of the job stream for the load
 JOBSTREAM=ensembl_assocload
