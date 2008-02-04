@@ -55,7 +55,7 @@ export INPUTDIR INFILE_NAME INFILE_BUFFERSIZE
 export LOG_PROC LOG_DIAG LOG_CUR LOG_VAL LOG_DEBUG
 
 #  The J-Number for the load
-J_NUMBER=J:1
+J_NUMBER=J:117730
 
 #  The name of the job stream for the load
 JOBSTREAM=gtlite_assocload
