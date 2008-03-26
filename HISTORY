@@ -1,3 +1,9 @@
+TAG: assocload-tr8769-1
+DATE: 03/26/2008
+STAFF: dbm
+CHANGES: 
+1) Made the private indicator on new accIDs configurable.
+
 TAG: assocload-tr8769-BP
 DATE: 03/26/2008
 STAFF: dbm
