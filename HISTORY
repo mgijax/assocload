@@ -1,3 +1,10 @@
+TAG: assocload-tr8769-2
+DATE: 04/30/2008
+STAFF: dbm
+CHANGES: 
+1) Exclude MGI types 21 and 25 in both parts of the query that gets the
+   current associations.
+
 TAG: assocload-tr8769-1
 DATE: 03/26/2008
 STAFF: dbm
