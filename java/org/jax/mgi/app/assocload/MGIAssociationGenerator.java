@@ -98,7 +98,8 @@ public class MGIAssociationGenerator
                                       mgdDB + "..ACC_LogicalDB db2 " +
                                 "WHERE m.accID = a.accID and " +
                                       "m.logicalDB = db2.name and " +
-                                      "db2._LogicalDB_key = a._LogicalDB_key) " +
+                                      "db2._LogicalDB_key = a._LogicalDB_key and " +
+                                      "a._MGIType_key not in (21,25)) " +
               "UNION " +
               "SELECT m._Record_key, " +
                      "m.accID, " +
@@ -113,7 +114,7 @@ public class MGIAssociationGenerator
                     "m.accID = a.accID and " +
                     "m.logicalDB = db.name and " +
                     "db._LogicalDB_key = a._LogicalDB_key and " +
-                    "a._MGIType_key != 21 " +
+                    "a._MGIType_key not in (21,25) " +
               "ORDER BY m._Record_key, m.accID, db._LogicalDB_key";
         logger.logdInfo("Execute Query: "+sql,true);
         rn = sqlMgr.executeQuery(sql);
