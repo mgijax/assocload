@@ -1,8 +1,27 @@
+TAG: assocload-4-0-2-1
+DATE: 05/12/2008
+STAFF: dbm
+CHANGES: 
+1) Merged tr8769 branch to the trunk for 4.02 release tag
+
+TAG: assocload-tr8769-2
+DATE: 04/30/2008
+STAFF: dbm
+CHANGES: 
+1) Exclude MGI types 21 and 25 in both parts of the query that gets the
+   current associations.
+
 TAG: assocload-tr8528-BP
 DATE: 04/24/2008
 STAFF: dbm
 CHANGES: 
 1) Branch point tag for TR 8528 (Build 37)
+
+TAG: assocload-tr8769-1
+DATE: 03/26/2008
+STAFF: dbm
+CHANGES: 
+1) Made the private indicator on new accIDs configurable.
 
 TAG: assocload-tr8769-BP
 DATE: 03/26/2008
