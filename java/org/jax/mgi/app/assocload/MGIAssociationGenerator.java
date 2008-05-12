@@ -1,6 +1,3 @@
-//  $Header$
-//  $Name$
-
 package org.jax.mgi.app.assocload;
 
 import java.util.Iterator;
@@ -101,7 +98,8 @@ public class MGIAssociationGenerator
                                       mgdDB + "..ACC_LogicalDB db2 " +
                                 "WHERE m.accID = a.accID and " +
                                       "m.logicalDB = db2.name and " +
-                                      "db2._LogicalDB_key = a._LogicalDB_key) " +
+                                      "db2._LogicalDB_key = a._LogicalDB_key and " +
+                                      "a._MGIType_key not in (21,25)) " +
               "UNION " +
               "SELECT m._Record_key, " +
                      "m.accID, " +
@@ -116,7 +114,7 @@ public class MGIAssociationGenerator
                     "m.accID = a.accID and " +
                     "m.logicalDB = db.name and " +
                     "db._LogicalDB_key = a._LogicalDB_key and " +
-                    "a._MGIType_key != 21 " +
+                    "a._MGIType_key not in (21,25) " +
               "ORDER BY m._Record_key, m.accID, db._LogicalDB_key";
         logger.logdInfo("Execute Query: "+sql,true);
         rn = sqlMgr.executeQuery(sql);
@@ -308,35 +306,3 @@ public class MGIAssociationGenerator
         }
     }
 }
-
-
-//  $Log$
-//  Revision 1.1.2.1  2005/05/19 17:35:37  dbm
-//  TR 6574
-//
-//  Revision 1.1  2005/01/24 17:19:15  dbm
-//  New
-//
-//
-/**************************************************************************
-*
-* Warranty Disclaimer and Copyright Notice
-*
-*  THE JACKSON LABORATORY MAKES NO REPRESENTATION ABOUT THE SUITABILITY OR
-*  ACCURACY OF THIS SOFTWARE OR DATA FOR ANY PURPOSE, AND MAKES NO WARRANTIES,
-*  EITHER EXPRESS OR IMPLIED, INCLUDING MERCHANTABILITY AND FITNESS FOR A
-*  PARTICULAR PURPOSE OR THAT THE USE OF THIS SOFTWARE OR DATA WILL NOT
-*  INFRINGE ANY THIRD PARTY PATENTS, COPYRIGHTS, TRADEMARKS, OR OTHER RIGHTS.
-*  THE SOFTWARE AND DATA ARE PROVIDED "AS IS".
-*
-*  This software and data are provided to enhance knowledge and encourage
-*  progress in the scientific community and are to be used only for research
-*  and educational purposes.  Any reproduction or use for commercial purpose
-*  is prohibited without the prior express written permission of The Jackson
-*  Laboratory.
-*
-* Copyright \251 1996, 1999, 2002, 2005 by The Jackson Laboratory
-*
-* All Rights Reserved
-*
-**************************************************************************/
