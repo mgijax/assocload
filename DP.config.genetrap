@@ -35,7 +35,7 @@ RPTDIR=${FILEDIR}/reports
 OUTPUTDIR=${FILEDIR}/output
 
 #  Complete path name of the input file
-INPUTDIR=${FILEDIR}/input
+INPUTDIR=/data/loads/mgi/genetraps/gtlitepipeline/output
 INFILE_NAME=${INPUTDIR}/associations.txt
 
 #  Set the size of the memory buffer used when reading an input file
@@ -128,6 +128,6 @@ export MGI_ASSOCIATION_BCP_PRESQL
 MAIL_LOADNAME="Gene Trap Lite Assoc Load"
 
 #  Recipient list for mailing the log files (comma-separated)
-MAIL_LOG_CUR="sc"
+MAIL_LOG_CUR="mgiadmin"
 
 export MAIL_LOADNAME MAIL_LOG_CUR
