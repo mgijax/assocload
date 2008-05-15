@@ -1,3 +1,11 @@
+TAG: assocload-4-0-2-2
+DATE: 05/15/2008
+STAFF: dbm
+CHANGES: 
+1) Updated AssocLoad.config.default to add TIGM to ASSOCLOAD_SINGLE_OBJECT_DB.
+2) Updated DP.config.genetrap to have correct INPUTDIR for Build 37.
+   NOTE: These changes are non-impacting to the 4.02 release.
+
 TAG: assocload-4-0-2-1
 DATE: 05/12/2008
 STAFF: dbm
