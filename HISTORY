@@ -1,3 +1,9 @@
+TAG: assocload-4-1-3-1
+DATE: 10/15/2008
+STAFF: lec
+CHANGES: 
+1) TR9206/add MouseCyc logicalDB (120) to AssocLoad.config.default/ASSOCLOAD_MULTIPLE_OBJECT_DB
+
 TAG: assocload-4-0-2-2
 DATE: 05/15/2008
 STAFF: dbm
