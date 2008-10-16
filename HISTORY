@@ -1,8 +1,11 @@
+TAG: assocload-4-1-3-2
 TAG: assocload-4-1-3-1
+DATE: 10/16/2008
 DATE: 10/15/2008
 STAFF: lec
 CHANGES: 
 1) TR9206/add MouseCyc logicalDB (120) to AssocLoad.config.default/ASSOCLOAD_MULTIPLE_OBJECT_DB
+2) REMOVED becaues I don't need to use the assocload, but the annotload
 
 TAG: assocload-4-0-2-2
 DATE: 05/15/2008
