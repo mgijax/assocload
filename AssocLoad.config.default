@@ -50,7 +50,7 @@ export JAVA_LIB CLASSPATH
 ###########################################################################
 
 #  Logical DBs that can be associated with a single MGI object
-ASSOCLOAD_SINGLE_OBJECT_DB="MGC,BROAD,miRBase,Lexicon,CMHD,SIGTR,GGTC,ESDB,BayGenomics,FHCRC,TIGEM,EGTC,TIGM"
+ASSOCLOAD_SINGLE_OBJECT_DB="MGC,BROAD,miRBase,Lexicon,CMHD,SIGTR,GGTC,ESDB,BayGenomics,FHCRC,TIGEM,EGTC,TIGM,Affy 1.0 ST,Affy 430A 2.0,MouseFunc"
 
 #  Logical DBs that can be associated with multiple MGI objects
 ASSOCLOAD_MULTIPLE_OBJECT_DB="Sequence DB,DFCI,DOTS,NIA Mouse Gene Index,UniSTS,SWISS-PROT,TrEMBL,EC,PDB,VEGA Gene Model,Ensembl Gene Model,NCBI Gene Model,TreeFam-Tree,TreeFam-Gene,ABA"
