@@ -1,3 +1,10 @@
+TAG: assocload-4-3-2-1
+DATE: 11/18/2009
+STAFF: dbm
+CHANGES: 
+1) Modified ASSOCLOAD_SINGLE_OBJECT_DB setting in AssocLoad.config.default to
+   add ArrayExpress and change MouseFunc to FuncBase (4.32 release)
+
 TAG: assocload-4-2-1-1
 DATE: 03/17/2009
 STAFF: dbm
