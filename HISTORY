@@ -1,3 +1,9 @@
+TAG: assocload-4-3-2-2
+DATE: 12/01/2009
+STAFF: sc
+CHANGES: TR9774
+Added to ASSOCLOAD_MULTI_OBJECT_DB VEGA/Ensembl Protein/Transcript ldbs
+
 TAG: assocload-4-3-2-1
 DATE: 11/18/2009
 STAFF: dbm
