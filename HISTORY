@@ -1,7 +1,14 @@
+TAG: assocload-4-3-2-3
+DATE: 01/04/2010
+STAFF: sc
+CHANGES: TR9697 (4.33 maint release)
+1) AssocLoad.config - Added to ASSOCLOAD_MULTI_OBJECT_DB 'PRO' ldb
+2) updated AssocLoad2.sh to use DLAJobstreamFuncs checkStatus function
+
 TAG: assocload-4-3-2-2
 DATE: 12/01/2009
 STAFF: sc
-CHANGES: TR9774
+CHANGES: TR9774 (4.33 maint release)
 Added to ASSOCLOAD_MULTI_OBJECT_DB VEGA/Ensembl Protein/Transcript ldbs
 
 TAG: assocload-4-3-2-1

@@ -150,12 +150,7 @@ ${JAVA} ${JAVARUNTIMEOPTS} -classpath ${CLASSPATH} \
         -DCONFIG=${config_files} \
         -DJOBKEY=${JOBKEY} ${SYSPROPS} ${DLA_START}
 STAT=$?
-if [ ${STAT} -ne 0 ]
-then
-    echo "Association loader application failed.  Return status: ${STAT}" >> ${LOG_PROC}
-    exit 1
-fi
-echo "Association loader application completed successfully" >> ${LOG_PROC}
+checkStatus ${STAT} "Association Loader"
 
 #
 #  Generate the association loader QC reports.
@@ -164,12 +159,7 @@ echo "\n`date`" >> ${LOG_PROC}
 echo "Generate the association loader QC reports" >> ${LOG_PROC}
 ${ASSOCLOADER_QCRPT} ${RPTDIR} ${RADAR_DBSERVER} ${RADAR_DBNAME} ${MGD_DBNAME} ${JOBKEY} >> ${LOG_DIAG}
 STAT=$?
-if [ ${STAT} -ne 0 ]
-then
-    echo "QC reports failed.  Return status: ${STAT}" >> ${LOG_PROC}
-    exit 1
-fi
-echo "QC reports completed successfully" >> ${LOG_PROC}
+checkStatus ${STAT} "${ASSOCLOADER_QCRPT}"
 
 #
 #  Perform post-load tasks.
