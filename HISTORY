@@ -1,3 +1,9 @@
+TAG: assocload-4-3-2-4
+DATE: 01/06/2010
+STAFF: lec
+CHANGES: TR9932
+1) AssocLoad.config - Added to ASSOCLOAD_MULTI_OBJECT_DB 'CCDS' ldb; 136
+
 TAG: assocload-4-3-2-3
 DATE: 01/04/2010
 STAFF: sc
