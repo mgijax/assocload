@@ -1,3 +1,10 @@
+TAG: assocload-4-3-2-6
+DATE: 01/07/2010
+STAFF: lec
+CHANGES: TR9932
+1) AssocLoad.config - Added to ASSOCLOAD_MULTI_OBJECT_DB 'CCDS' ldb; 136
+   changed ldb from "CCDS" to "Consensus CDS Project"
+
 TAG: assocload-4-3-2-5
 DATE: 01/07/2010
 STAFF: sc
