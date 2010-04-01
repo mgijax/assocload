@@ -1,3 +1,10 @@
+TAG: assocload-4-3-3-1
+DATE: 04/01/2010
+STAFF: dbm
+CHANGES: TR10129 and TR10130
+1) AssocLoad.config.default: updated ASSOCLOAD_SINGLE_OBJECT_DB setting with
+   renamed Affy 430 2.0 and new Affy U74 logical DBs
+
 TAG: assocload-4-3-2-6
 DATE: 01/07/2010
 STAFF: lec
