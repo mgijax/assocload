@@ -27,7 +27,7 @@ fi
 . ${MGICONFIG}/master.config.sh
 
 #  Association loader QC report shell script
-ASSOCLOADER_QCRPT=${QCRPTS}/assocload/AssocLoadRpt.sh
+ASSOCLOADER_QCRPT=${QCRPTS}/assocload/AssocLoadRpt.csh
 
 export ASSOCLOADER_QCRPT
 
