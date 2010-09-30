@@ -1,3 +1,9 @@
+TAG: assocload-4-4-0-1
+DATE: 09/30/2010
+STAFF: dbm
+CHANGES: TR8688
+1) AssocLoad.config.default: rename AssocLoadRpt.sh to AssocLoadRpt.csh
+
 TAG: assocload-4-3-3-1
 DATE: 04/01/2010
 STAFF: dbm
