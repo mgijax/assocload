@@ -1,3 +1,9 @@
+TAG: assocload-4-4-2-1
+DATE: 10/11/2011
+STAFF: lec
+CHANGES: 
+1) AssocLoad.config.default - removed TreeFam from ASSOCLOAD_MULTIPLE_OBJECT_D
+
 TAG: assocload-4-4-1-1
 DATE: 03/03/2011
 STAFF: sc
