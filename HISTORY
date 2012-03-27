@@ -1,3 +1,10 @@
+TAG: assocload-4-4-2-2
+DATE: 03/27/2012
+STAFF: sc
+CHANGES: TR10973
+1) AssocLoad.config.default - 
+    Added 'Download data from the QTL Archive' to ASSOCLOAD_MULTIPLE_OBJECT_DB
+
 TAG: assocload-4-4-2-1
 DATE: 10/11/2011
 STAFF: lec
