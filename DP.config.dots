@@ -28,7 +28,7 @@ export ASSOCLOADER_SH
 ###########################################################################
 
 #  Path name of the archive, logs, reports and output directories
-FILEDIR=/data/loads/dots/assocload
+FILEDIR=${DATALOADSOUTPUT}/dots/assocload
 ARCHIVEDIR=${FILEDIR}/archive
 LOGDIR=${FILEDIR}/logs
 RPTDIR=${FILEDIR}/reports

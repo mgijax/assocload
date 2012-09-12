@@ -28,14 +28,14 @@ export ASSOCLOADER_SH
 ###########################################################################
 
 #  Path name of the archive, logs, reports and output directories
-FILEDIR=/data/loads/mgi/genetraps/assocload
+FILEDIR=${DATALOADSOUTPUT}/mgi/genetraps/assocload
 ARCHIVEDIR=${FILEDIR}/archive
 LOGDIR=${FILEDIR}/logs
 RPTDIR=${FILEDIR}/reports
 OUTPUTDIR=${FILEDIR}/output
 
 #  Complete path name of the input file
-INPUTDIR=/data/loads/mgi/genetraps/gtlitepipeline/output
+INPUTDIR=${DATALOADSOUTPUT}/mgi/genetraps/gtlitepipeline/output
 INFILE_NAME=${INPUTDIR}/associations.txt
 
 #  Set the size of the memory buffer used when reading an input file
