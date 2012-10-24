@@ -149,7 +149,7 @@ public class DPAssociationInterpreter implements RecordDataInterpreter
                     // attributes.
                     //
                     assocState = new MGI_AssociationState();
-                    assocState.setAccID(accIDs[j]);
+                    assocState.setAccID(accIDs[j].trim() );
                     assocState.setLogicalDB(logicalDBs[i]);
 
                     // Only the first field in the input file contains the target

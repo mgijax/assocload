@@ -1,3 +1,13 @@
+TAG: assocload-5-0-0-1
+DATE: 10/24/2012
+STAFF: sc
+CHANGES: C4AM/B38
+1) AssocLoad.config.default - moved miRBase from ASSOCLOAD_SINGLE_OBJECT_DB
+   to ASSOCLOAD_MULTIPLE_OBJECT_DB
+2) DPAssociationInterpreter.java - trim leading/trailing whitespace
+   from all IDs in the input file. This is to support comma delimited multi IDs 
+	per logicalDB which might contain spaces
+
 TAG: assocload-4-4-2-2
 DATE: 03/27/2012
 STAFF: sc
