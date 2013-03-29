@@ -1,3 +1,9 @@
+TAG: assocload-5-1-2-1
+DATE: 03/29/2013
+STAFF: dbm
+CHANGES:
+1) AssocLoad.config.default: Added neXtProt to ASSOCLOAD_MULTIPLE_OBJECT_DB
+
 TAG: assocload-5-1-1-1
 DATE: 11/07/2012
 STAFF: sc
