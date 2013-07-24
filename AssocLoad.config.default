@@ -37,7 +37,7 @@ export ASSOCLOADER_QCRPT
 #
 ###########################################################################
 
-JAVA_LIB=${MGI_JAVALIB}/lib_java_core/core.jar:${MGI_JAVALIB}/lib_java_dbsmgd/dbsmgd.jar:${MGI_JAVALIB}/lib_java_dbsrdr/dbsrdr.jar:${MGI_JAVALIB}/lib_java_dla/dla.jar
+JAVA_LIB=${MGI_JAVALIB}/core.jar:${MGI_JAVALIB}/dbsmgd.jar:${MGI_JAVALIB}/dbsrdr.jar:${MGI_JAVALIB}/dla.jar
 
 CLASSPATH=.:${ASSOCLOAD}/assocload.jar:${JAVA_LIB}:${COMMON_CLASSPATH}
 
