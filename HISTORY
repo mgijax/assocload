@@ -1,3 +1,9 @@
+TAG: assocload-5-1-4-1
+DATE: 07/24/2013
+STAFF: dbm
+CHANGES:
+1) AssocLoad.config.default: Use sym link for each jar file in JAVA_LIB path
+
 TAG: assocload-5-1-2-1
 DATE: 03/29/2013
 STAFF: dbm
