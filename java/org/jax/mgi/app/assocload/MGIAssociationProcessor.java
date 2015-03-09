@@ -713,8 +713,8 @@ public class MGIAssociationProcessor
                 PRB_ReferenceState probeRefState = new PRB_ReferenceState();
                 probeRefState.setProbeKey(probeKey);
                 probeRefState.setRefsKey(refsKey);
-                probeRefState.setHasRmap(new Boolean(false));
-                probeRefState.setHasSequence(new Boolean(false));
+                probeRefState.setHasrmap(new Boolean(false));
+                probeRefState.setHassequence(new Boolean(false));
 
                 // Create a DAO for the state object and pass it to the stream.
                 //
