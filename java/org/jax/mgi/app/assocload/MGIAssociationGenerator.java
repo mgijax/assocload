@@ -71,13 +71,11 @@ public class MGIAssociationGenerator
 
         // Get a SQLDataManager for the RADAR database from the factory.
         //
-        SQLDataManager sqlMgr =
-            SQLDataManagerFactory.getShared(SchemaConstants.RADAR);
+        SQLDataManager sqlMgr = SQLDataManagerFactory.getShared(SchemaConstants.RADAR);
 
         // Get the name of the MGD database.
         //
-        String mgdDB =
-            SQLDataManagerFactory.getShared(SchemaConstants.MGD).getDatabase();
+        String mgdDB = SQLDataManagerFactory.getShared(SchemaConstants.MGD).getSchema();
 
         // Create a ResultsNavigator to get all the associations that already
         // exist for the accession ID/logical DB pairs in the MGI_Association
@@ -87,8 +85,8 @@ public class MGIAssociationGenerator
                      "m.accID, " +
                      "db._LogicalDB_key, " +
                      "m.target, " +
-                     "null as 'MGI Type', " +
-                     "null as 'Object Key' " +
+                     "null as \"MGI Type\", " +
+                     "null as \"Object Key\" " +
               "FROM MGI_Association m, " +
                     mgdDB + ".ACC_LogicalDB db " +
               "WHERE m._JobStream_key = " + jobKey + " and " +
@@ -105,8 +103,8 @@ public class MGIAssociationGenerator
                      "m.accID, " +
                      "db._LogicalDB_key, " +
                      "m.target, " +
-                     "a._MGIType_key as 'MGI Type', " +
-                     "a._Object_key as 'Object Key' " +
+                     "a._MGIType_key as \"MGI Type\", " +
+                     "a._Object_key as \"Object Key\" " +
               "FROM MGI_Association m, " +
                     mgdDB + ".ACC_Accession a, " +
                     mgdDB + ".ACC_LogicalDB db " +
@@ -115,7 +113,7 @@ public class MGIAssociationGenerator
                     "m.logicalDB = db.name and " +
                     "db._LogicalDB_key = a._LogicalDB_key and " +
                     "a._MGIType_key not in (21,25) " +
-              "ORDER BY m._Record_key, m.accID, db._LogicalDB_key";
+              "ORDER BY _Record_key, accID, _LogicalDB_key";
         logger.logdInfo("Execute Query: "+sql,true);
         rn = sqlMgr.executeQuery(sql);
 

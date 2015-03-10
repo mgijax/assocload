@@ -36,7 +36,7 @@ OUTPUTDIR=${FILEDIR}/output
 
 #  Complete path name of the input file
 INPUTDIR=${FILEDIR}/input
-INFILE_NAME=${INPUTDIR}/ENSEMBL_AssociationLoad
+INFILE_NAME=${INPUTDIR}/ENSEMBL_AssociationLoad2
 
 #  Set the size of the memory buffer used when reading an input file
 INFILE_BUFFERSIZE=21000000
@@ -128,7 +128,7 @@ export MGI_ASSOCIATION_BCP_PRESQL
 MAIL_LOADNAME="Ensembl Load"
 
 #  Recipient list for mailing the log files (comma-separated)
-MAIL_LOG_PROC="mgiadmin"
-MAIL_LOG_CUR="mgiadmin"
+#MAIL_LOG_PROC="mgiadmin"
+#MAIL_LOG_CUR="mgiadmin"
 
 export MAIL_LOADNAME MAIL_LOG_PROC MAIL_LOG_CUR
