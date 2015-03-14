@@ -157,7 +157,7 @@ checkStatus ${STAT} "Association Loader"
 #
 echo "\n`date`" >> ${LOG_PROC}
 echo "Generate the association loader QC reports" >> ${LOG_PROC}
-${ASSOCLOADER_QCRPT} ${RPTDIR} ${RADAR_DBSERVER} ${RADAR_DBNAME} ${MGD_DBNAME} ${JOBKEY} >> ${LOG_DIAG}
+${ASSOCLOADER_QCRPT} ${RPTDIR} ${RADAR_DBSERVER} radar ${MGD_DBNAME} ${JOBKEY} >> ${LOG_DIAG}
 STAT=$?
 checkStatus ${STAT} "${ASSOCLOADER_QCRPT}"
 
