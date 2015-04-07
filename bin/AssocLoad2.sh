@@ -144,7 +144,8 @@ preload
 #
 #  Run the association loader.
 #
-echo "\n`date`" >> ${LOG_PROC}
+echo ""
+echo "`date`" >> ${LOG_PROC}
 echo "Run the association loader application" >> ${LOG_PROC}
 ${JAVA} ${JAVARUNTIMEOPTS} -classpath ${CLASSPATH} \
         -DCONFIG=${config_files} \
@@ -155,7 +156,8 @@ checkStatus ${STAT} "Association Loader"
 #
 #  Generate the association loader QC reports.
 #
-echo "\n`date`" >> ${LOG_PROC}
+echo ""
+echo "`date`" >> ${LOG_PROC}
 echo "Generate the association loader QC reports" >> ${LOG_PROC}
 ${ASSOCLOADER_QCRPT} ${RPTDIR} ${RADAR_DBSERVER} radar ${MGD_DBNAME} ${JOBKEY} >> ${LOG_DIAG}
 STAT=$?
