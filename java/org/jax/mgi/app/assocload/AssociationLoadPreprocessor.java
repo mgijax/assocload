@@ -91,7 +91,7 @@ public class AssociationLoadPreprocessor
         // were made by the prior run of this job stream.
         //
         sql = "SELECT _Accession_key " +
-              "INTO #Keys " +
+              "INTO temp keys " +
               "FROM ACC_AccessionReference r, " +
                    "MGI_User u " +
               "WHERE r._CreatedBy_key = u._User_key and " +
@@ -104,37 +104,34 @@ public class AssociationLoadPreprocessor
         // This has better performance than letting the trigger on the
         // ACC_Accession table do the delete.
         //
-        sql = "DELETE ACC_AccessionReference " +
-              "FROM ACC_AccessionReference r, " +
-                   "#Keys k " +
-              "WHERE r._Accession_key = k._Accession_key";
+        sql = "DELETE FROM ACC_AccessionReference " +
+              "USING  keys k " +
+              "WHERE ACC_AccessionReference._Accession_key = k._Accession_key";
         logger.logdInfo("Execute SQL: "+sql,true);
         rtn = sqlMgr.executeUpdate(sql);
         logger.logdInfo("Rows affected: "+rtn,false);
 
         // Delete all the ACC_Accession records for the list of keys.
         //
-        sql = "DELETE ACC_Accession " +
-              "FROM ACC_Accession a, " +
-                   "#Keys k " +
-              "WHERE a._Accession_key = k._Accession_key";
+        sql = "DELETE FROM ACC_Accession " +
+              "USING keys k " +
+              "WHERE ACC_Accession._Accession_key = k._Accession_key";
         logger.logdInfo("Execute SQL: "+sql,true);
         rtn = sqlMgr.executeUpdate(sql);
         logger.logdInfo("Rows affected: "+rtn,false);
 
         // Drop the temp table that was created.
         //
-        sql = "DROP TABLE #Keys";
+        sql = "DROP TABLE keys";
         logger.logdInfo("Execute SQL: "+sql,true);
         rtn = sqlMgr.executeUpdate(sql);
 
         // Delete all records from the PRB_Reference table that were created by
         // the prior run of this job stream.
         //
-        sql = "DELETE PRB_Reference " +
-              "FROM PRB_Reference r, " +
-                   "MGI_User u " +
-              "WHERE r._CreatedBy_key = u._User_key and " +
+        sql = "DELETE FROM PRB_Reference " +
+              "USING MGI_User u " +
+              "WHERE PRB_Reference._CreatedBy_key = u._User_key and " +
                      "u.login = '" + jobStreamName + "'";
         logger.logdInfo("Execute SQL: "+sql,true);
         rtn = sqlMgr.executeUpdate(sql);

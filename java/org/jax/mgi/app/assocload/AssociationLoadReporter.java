@@ -93,7 +93,7 @@ public class AssociationLoadReporter
             qcState.setObjectKey(objectKey);
         if (mgiTypeKey != null)
             qcState.setMGITypeKey(mgiTypeKey);
-        qcState.setExpectedType(expMGIType);
+        qcState.setExpectedtype(expMGIType);
         qcState.setMessage(msg);
 
         // Create a DAO object from the state object and pass the DAO object
@@ -139,9 +139,9 @@ public class AssociationLoadReporter
         //
         QC_AssocLoad_Assoc_DiscrepState qcState =
             new QC_AssocLoad_Assoc_DiscrepState();
-        qcState.setTgtAccID(tgtAccID);
-        qcState.setTgtLogicalDBKey(new Integer(tgtLogicalDBKey));
-        qcState.setTgtObjectKey(new Integer(tgtObjectKey));
+        qcState.setTgtaccID(tgtAccID);
+        qcState.setTgtlogicalDBKey(new Integer(tgtLogicalDBKey));
+        qcState.setTgtobjectKey(new Integer(tgtObjectKey));
         qcState.setTgtMGITypeKey(new Integer(tgtMGITypeKey));
         qcState.setAccID(accID);
         qcState.setLogicalDBKey(logicalDBKey);

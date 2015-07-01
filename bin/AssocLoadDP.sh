@@ -146,7 +146,7 @@ preload
 #
 #  Call the association loader wrapper.
 #
-echo "\n`date`" >> ${LOG_PROC}
+echo "`date`" >> ${LOG_PROC}
 echo "Call the association loader wrapper" >> ${LOG_PROC}
 ${ASSOCLOADER_SH} ${DP_CONFIG} ${JOBKEY} >> ${LOG_DIAG}
 STAT=$?

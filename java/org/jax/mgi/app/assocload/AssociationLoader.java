@@ -170,8 +170,7 @@ public class AssociationLoader extends DLALoader
 
     // An input data file object for the input file (if needed).
     //
-    private InputDataFile inFile = null;
-
+    private InputDataFile inFile = null; 
     // An interpreter for the input file (if needed).
     //
     private DPAssociationInterpreter interpreter = null;
@@ -286,11 +285,9 @@ public class AssociationLoader extends DLALoader
             // Get a SQLDataManager and a BCPManager and use them to create a
             // new stream.
             //
-            SQLDataManager sqlMgr =
-                SQLDataManagerFactory.getShared(SchemaConstants.RADAR);
+            SQLDataManager sqlMgr = SQLDataManagerFactory.getShared(SchemaConstants.RADAR);
             sqlMgr.setLogger(logger);
-            BCPManager bcpMgr =
-                new BCPManager(new BCPManagerCfg(SchemaConstants.RADAR));
+            BCPManager bcpMgr = new BCPManager(new BCPManagerCfg(SchemaConstants.RADAR));
             bcpMgr.setLogger(logger);
             radarStream = createSQLStream(dlaConfig.getLoadStreamName(),
                                           sqlMgr, bcpMgr);

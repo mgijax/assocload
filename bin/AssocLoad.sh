@@ -150,7 +150,8 @@ getConfigEnv -e >> ${LOG_DIAG}
 #
 #  Run the association loader.
 #
-echo "\n`date`" >> ${LOG_PROC}
+echo ""
+echo "`date`" >> ${LOG_PROC}
 echo "Run the association loader application" >> ${LOG_PROC}
 ${JAVA} ${JAVARUNTIMEOPTS} -classpath ${CLASSPATH} \
         -DCONFIG=${CONFIG_MASTER},${DP_CONFIG},${ASSOCLOAD_CONFIG} \
@@ -166,9 +167,11 @@ echo "Association loader application completed successfully" >> ${LOG_PROC}
 #
 #  Generate the association loader QC reports.
 #
-echo "\n`date`" >> ${LOG_PROC}
+echo "${ASSOCLOADER_QCRPT} ${RPTDIR} ${RADAR_DBSERVER} ${RADAR_DBNAME} ${MGD_DBNAME} ${JOBKEY}"
+echo ""
+echo "`date`" >> ${LOG_PROC}
 echo "Generate the association loader QC reports" >> ${LOG_PROC}
-${ASSOCLOADER_QCRPT} ${RPTDIR} ${RADAR_DBSERVER} ${RADAR_DBNAME} ${MGD_DBNAME} ${JOBKEY} >> ${LOG_DIAG}
+${ASSOCLOADER_QCRPT} ${RPTDIR} ${RADAR_DBSERVER} radar ${MGD_DBNAME} ${JOBKEY} >> ${LOG_DIAG}
 STAT=$?
 if [ ${STAT} -ne 0 ]
 then
