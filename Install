@@ -53,14 +53,6 @@ then
     DEV="-d"
 fi
 
-#
-# run DLAInstall for each configuration file
-#
-echo 'running DLAINSTALL'
-
-. DP.config.dfci
-${DLAINSTALL} ${DEV}
-
 for c in `ls DP.config.* | grep -v template`
 do
 echo "Source ${c}"
