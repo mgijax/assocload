@@ -1,3 +1,11 @@
+TAG: assocload-6-0-1-1
+DATE: 11/30/2015
+STAFF: dbm
+CHANGES: TR11904 & TR12199
+1) DP.config.dfci, DP.config.dots, DP.config.ensembl,
+   DP.config.genbank, DP.config.genetrap, DP.config.nia,
+   DP.config.template: Don't override MAIL_LOG_PROC and MAIL_LOG_CUR
+
 TAG: assocload-6-0-0-?
 DATE: 09/01/2015
 STAFF: lec
