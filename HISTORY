@@ -1,3 +1,9 @@
+TAG: assocload-6-0-1-2
+DATE: 12/01/2015
+STAFF: sc
+CHANGES: TR12148 Textual Gene Summaries
+1) AssocLoad.config.default - added MyGene ldb to ASSOCLOAD_MULTIPLE_OBJECT_DB
+
 TAG: assocload-6-0-1-1
 DATE: 11/30/2015
 STAFF: dbm
