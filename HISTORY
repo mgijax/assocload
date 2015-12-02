@@ -1,3 +1,12 @@
+TAG: assocload-6-0-2-1
+DATE: 12/02/2015
+STAFF: lec
+CHANGES: 
+1) TR12038/DoTS/NIA/DFCI obosolete
+DP.config.dots
+DP.config.dfci
+DP.config.nia
+
 TAG: assocload-6-0-1-2
 DATE: 12/01/2015
 STAFF: sc
@@ -12,12 +21,12 @@ CHANGES: TR11904 & TR12199
    DP.config.genbank, DP.config.genetrap, DP.config.nia,
    DP.config.template: Don't override MAIL_LOG_PROC and MAIL_LOG_CUR
 
-TAG: assocload-6-0-0-?
-DATE: 09/01/2015
+TAG: assocload-tr12070-1
+DATE: 12/02/2015
 STAFF: lec
 CHANGES: 
 1) TR12038/DoTS/NIA/DFCI obosolete
-DP.config.dfci
+DP.config.dots
 DP.config.dfci
 DP.config.nia
 

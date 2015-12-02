@@ -58,7 +58,7 @@ fi
 #
 echo 'running DLAINSTALL'
 
-. DP.config.dfci
+. DP.config.ensembl
 ${DLAINSTALL} ${DEV}
 
 for c in `ls DP.config.* | grep -v template`
