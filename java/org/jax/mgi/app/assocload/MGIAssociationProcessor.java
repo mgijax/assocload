@@ -145,8 +145,10 @@ public class MGIAssociationProcessor
         // Look up each logical DB name and add the keys to the array.
         //
         singleDB = new Vector();
-        for (i=0; i<list.length; i++)
-            singleDB.add(dbLookup.lookup(list[i]));
+        for (i=0; i<list.length; i++) {
+	    String ldb = list[i].trim();
+            singleDB.add(dbLookup.lookup(ldb));
+	}
 
         // Get the list of logical DBs that may only be associated with
         // multiple objects in MGI.
@@ -156,8 +158,10 @@ public class MGIAssociationProcessor
         // Look up each logical DB name and add the keys to the array.
         //
         multipleDB = new Vector();
-        for (i=0; i<list.length; i++)
-            multipleDB.add(dbLookup.lookup(list[i]));
+        for (i=0; i<list.length; i++) {
+	    String ldb = list[i].trim();
+            multipleDB.add(dbLookup.lookup(ldb));
+	}
 
         logger.logdInfo("Logical DBs for single object associations: " +
                         singleDB.toString(),false);
