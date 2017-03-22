@@ -1,7 +1,15 @@
+TAG: assocload-not yet tagged
+DATE: 03/??/2017
+STAFF: sc
+CHANGES: Mice Crispies (contigs)
+1) DP.config.contig - added new JNum
+
 TAG: assocload-6-0-8-1
 DATE: 03/22/2017
 STAFF: sc
-CHANGES: Branch Point tag Mice Crispies (contigs)
+CHANGES: Mice Crispies (contigs)
+1) added DP.config.contig
+2) AssocLoad.config.default - added RefSeq to ASSOCLOAD_MULTIPLE_OBJECT_DB
 
 TAG: assocload-6-0-6-1
 DATE: 09/08/2016
