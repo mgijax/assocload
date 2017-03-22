@@ -1,0 +1,141 @@
+#format: sh
+#
+#  DP.config.contig
+#
+#  This file sets up environment variables that are needed for the genbank
+#  and refseq contig associatin load
+#
+#  NOTE:  The common config file (/usr/local/mgi/live/mgiconfig/master.config.sh)
+#         should be run prior to this file to set up any dependencies.
+#
+###########################################################################
+#
+#  If the MGICONFIG environment variable does not have a local override,
+#  use the default "live" settings.
+#
+if [ "${MGICONFIG}" = "" ]
+then
+    MGICONFIG=/usr/local/mgi/live/mgiconfig
+    export MGICONFIG
+fi
+
+. ${MGICONFIG}/master.config.sh
+
+###########################################################################
+#
+#  GENERAL SETTINGS
+#
+###########################################################################
+
+#  Association Loader shell script
+ASSOCLOADER_SH=${ASSOCLOAD}/bin/AssocLoad.sh
+
+export ASSOCLOADER_SH
+
+###########################################################################
+#
+#  LOAD SPECIFIC SETTINGS
+#
+###########################################################################
+
+#  Path name of the archive, logs, reports and output directories
+FILEDIR=${DATALOADSOUTPUT}/genbank/contig/assocload
+ARCHIVEDIR=${FILEDIR}/archive
+LOGDIR=${FILEDIR}/logs
+RPTDIR=${FILEDIR}/reports
+OUTPUTDIR=${FILEDIR}/output
+
+#  Complete path name of the input file
+INPUTDIR=/mgi/all/wts_projects/9800/9835/contig_data
+INFILE_NAME=${INPUTDIR}/contig_seq_marker.txt
+
+#  Set the size of the memory buffer used when reading an input file
+INFILE_BUFFERSIZE=21000000
+
+#  Complete path name of the log files
+LOG_PROC=${LOGDIR}/contig.proc.log
+LOG_DIAG=${LOGDIR}/contig.diag.log
+LOG_CUR=${LOGDIR}/contig.cur.log
+LOG_VAL=${LOGDIR}/contig.val.log
+
+#  Send debug messages to the diagnostic log (true or false)
+LOG_DEBUG=false
+
+export FILEDIR ARCHIVEDIR LOGDIR RPTDIR OUTPUTDIR
+export INPUTDIR INFILE_NAME INFILE_BUFFERSIZE
+export LOG_PROC LOG_DIAG LOG_CUR LOG_VAL LOG_DEBUG
+
+#  The J-Number for the load
+J_NUMBER=J:211773
+
+#  The name of the job stream for the load
+JOBSTREAM=contig_assocload
+
+export J_NUMBER JOBSTREAM
+
+#  Association Loader settings
+ASSOCLOAD_FROM_FILE=true
+ASSOCLOAD_TARGET_MGI_TYPE=Marker
+ASSOCLOAD_DELETE_RELOAD=true
+
+export ASSOCLOAD_FROM_FILE
+export ASSOCLOAD_TARGET_MGI_TYPE ASSOCLOAD_DELETE_RELOAD
+
+###########################################################################
+#
+#  BCP MANAGER SETTINGS BY DATABASE
+#
+###########################################################################
+
+#  Settings used to create a BCP manager for the RADAR database
+RADAR_BCP_PATH=${OUTPUTDIR}
+RADAR_BCP_AUTO_FLUSH=false
+RADAR_BCP_DROP_INDEXES=false
+RADAR_BCP_OK_TO_OVERWRITE=true
+RADAR_BCP_PREVENT_EXECUTE=false
+RADAR_BCP_RECORD_STAMPING=false
+RADAR_BCP_TRUNCATE_LOG=true
+RADAR_BCP_TRUNCATE_TABLE=false
+
+export RADAR_BCP_PATH RADAR_BCP_AUTO_FLUSH
+export RADAR_BCP_DROP_INDEXES RADAR_BCP_OK_TO_OVERWRITE
+export RADAR_BCP_PREVENT_EXECUTE RADAR_BCP_RECORD_STAMPING
+export RADAR_BCP_TRUNCATE_LOG RADAR_BCP_TRUNCATE_TABLE
+
+#  Settings used to create a BCP manager for the MGD database
+MGD_BCP_PATH=${OUTPUTDIR}
+MGD_BCP_AUTO_FLUSH=false
+MGD_BCP_DROP_INDEXES=false
+MGD_BCP_OK_TO_OVERWRITE=true
+MGD_BCP_PREVENT_EXECUTE=false
+MGD_BCP_RECORD_STAMPING=false
+MGD_BCP_TRUNCATE_LOG=true
+MGD_BCP_TRUNCATE_TABLE=false
+
+export MGD_BCP_PATH MGD_BCP_AUTO_FLUSH
+export MGD_BCP_DROP_INDEXES MGD_BCP_OK_TO_OVERWRITE
+export MGD_BCP_PREVENT_EXECUTE MGD_BCP_RECORD_STAMPING
+export MGD_BCP_TRUNCATE_LOG MGD_BCP_TRUNCATE_TABLE
+
+###########################################################################
+#
+#  BCP SETTINGS BY TABLE (OVERRIDE BCP MANAGER SETTINGS)
+#
+###########################################################################
+
+#  RADAR database table settings
+#
+MGI_ASSOCIATION_BCP_PRESQL="delete from MGI_Association where _JobStream_key in (select _JobStream_key from APP_JobStream where jobStreamName = '${JOBSTREAM}')"
+
+export MGI_ASSOCIATION_BCP_PRESQL
+
+###########################################################################
+#
+#  MISCELLANEOUS SETTINGS
+#
+###########################################################################
+
+#  The name of the load for the subject of an email notification
+MAIL_LOADNAME="GenBank/RefSeq Contig Load"
+
+export MAIL_LOADNAME
