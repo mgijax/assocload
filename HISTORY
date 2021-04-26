@@ -1,3 +1,13 @@
+TAG: assocload-6-0-16-2
+DATE: 04/26/2021
+STAFF: dbm
+CHANGES:
+1) AssocLoad.config.default: make ASSOCLOADER_QCRPT point to wrapper in
+                             assocload instead of qcreports_db
+2) bin/AssocLoadRpt.sh: moved from qcreports_db and converted to bourne shell
+3) bin/AssocDiscrepancyRpt.py: moved from qcreports_db
+4) bin/TargetDiscrepancyRpt.py: moved from qcreports_db
+
 TAG: assocload-6-0-13-1
 DATE: 09/04/2018
 STAFF: lec
