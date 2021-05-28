@@ -1,3 +1,9 @@
+TAG: assocload-6-0-17-1
+DATE: 05/28/2021
+STAFF: lec
+CHANGES:
+1) AssocLoad.config.default : removed "UniSTS"; obsolete
+
 TAG: assocload-6-0-16-2
 DATE: 04/26/2021
 STAFF: dbm
