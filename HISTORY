@@ -1,3 +1,11 @@
+TAG: assocload-6-0-22-1
+DATE: 04/27/2023
+STAFF: lec
+CHANGES:
+wts2-1050/Florida Too Project
+fl2-286/clean up:  femover/actual_database; unused ACC_ActualDB
+remove FuncBase from AssocLoad.config.default
+
 TAG: assocload-6-0-19-1
 TAG: assocload-6-0-18-2
 DATE: 03/22/2022, 04/11/2022
