@@ -5,6 +5,11 @@ wts2-1155/GOC taking over GOA mouse, GOA human, etc.
 #       modified:   bin/AssocDiscrepancyRpt.py
 #       modified:   bin/TargetDiscrepancyRpt.py
 
+TAG: assocload-6-0-22-2
+DATE: 11/15/2023
+STAFF: sc
+CHANGES: remove JCONNECT from build.xml (old sybase JDBC driver)
+
 TAG: assocload-6-0-22-1
 DATE: 04/27/2023
 STAFF: lec
