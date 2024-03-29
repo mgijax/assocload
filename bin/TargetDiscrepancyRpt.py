@@ -53,8 +53,7 @@ jobKey=sys.argv[5]
 
 reportWidth = 165;
  
-fp = reportlib.init(outputfile='TargetDiscrepancy.rpt', outputdir=outputDir,
-                    sqlLogging = 0)
+fp = reportlib.init(outputfile='TargetDiscrepancy.rpt', outputdir=outputDir)
 
 fp.write('SERVER=' + server + '  DATABASE=' + radarDB + ',' + mgdDB + 2*CRT)
 
