@@ -2,6 +2,7 @@ TAG: assocload-6-0-25-1
 DATE: 04/22/2025
 STAFF: lec
 wts2-1647/e4g-220/Retire neXtProt from MGI
+#       modified:   AssocLoad.conf.default
 
 TAG: assocload-6-0-23-1
 DATE: 03/29/2024
